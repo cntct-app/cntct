@@ -6,6 +6,7 @@ module.exports = {
   entry: './src/index.js',
   devServer: {
     port: process.env.PORT,
+    historyApiFallback: true,
     host: '0.0.0.0',
     hot: true
   },
