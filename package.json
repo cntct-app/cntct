@@ -10,10 +10,13 @@
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
+    "@hot-loader/react-dom": "^16.8.6",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.8",
-    "react-router-dom": "^5.0.0"
+    "react-router-dom": "^5.0.0",
+    "styled-components": "^4.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -27,6 +30,7 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-standard": "^4.0.0",
+    "file-loader": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",

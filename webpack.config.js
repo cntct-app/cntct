@@ -26,12 +26,22 @@ module.exports = {
             plugins: ['react-hot-loader/babel']
           }
         }
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        use: ['file-loader']
       }
     ]
   },
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    }
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './src/index.html',
+      base: '/'
     }),
     new webpack.HotModuleReplacementPlugin()
   ]
