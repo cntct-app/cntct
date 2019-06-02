@@ -11,6 +11,7 @@ const FieldContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 0 24px;
+  margin-bottom: 16px;
 
   > img {
     margin-right: 16px;
@@ -18,6 +19,11 @@ const FieldContainer = styled.div`
 
   &:focus {
     outline: none;
+    /* TODO */
+  }
+
+  &:active {
+    /* TODO */
   }
 `
 

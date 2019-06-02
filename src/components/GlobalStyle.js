@@ -11,9 +11,13 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height: 100vh;
   }
+  html {
+    background-color: black;
+  }
   body {
     margin: 0;
     color: white;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   }
 `
 
