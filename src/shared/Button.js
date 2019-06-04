@@ -26,11 +26,11 @@ const ButtonContainer = styled.button`
     text-align: left;
   }
 
-  > img:first-child {
+  > ${Glyph}:first-child {
     margin-right: 16px;
   }
 
-  > img:last-child {
+  > ${Glyph}:last-child {
     margin-left: 16px;
   }
 
