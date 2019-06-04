@@ -1,4 +1,4 @@
-import React from 'react'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import addGlyph from '../images/glyphs/add.svg'
@@ -8,7 +8,7 @@ import codeGlyph from '../images/glyphs/code.svg'
 import infoGlyph from '../images/glyphs/info.svg'
 import proGlyph from '../images/glyphs/pro.svg'
 
-const Glpyh = ({ name, large }) => {
+const Glyph = styled.img.attrs(({ name }) => {
   let source
 
   switch (name) {
@@ -31,12 +31,17 @@ const Glpyh = ({ name, large }) => {
       source = proGlyph
   }
 
-  return <img height={ large ? '28px' : '14px'} src={source} alt={`${name} icon`} />
-}
+  return {
+    src: source,
+    alt: `${name} icon`
+  }
+})`
+  height: ${({ large }) => large ? '28px' : '14px'}
+`
 
-Glpyh.propTypes = {
+Glyph.propTypes = {
   name: PropTypes.string.isRequired,
   large: PropTypes.bool
 }
 
-export default Glpyh
+export default Glyph

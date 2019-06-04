@@ -19,14 +19,15 @@ const ButtonContainer = styled.button`
   border: 0;
   margin-bottom: 16px;
   outline: none;
-
-  > img:first-child {
-    margin-right: 16px;
-  }
+  height: 48px;
 
   > p {
     flex-grow: 1;
     text-align: left;
+  }
+
+  > img:first-child {
+    margin-right: 16px;
   }
 
   > img:last-child {

@@ -1,16 +1,14 @@
-import React from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 
-const FieldContainer = styled.div`
+const Field = styled.div`
   border: 4px solid #1B1B1B;
   border-radius: 6px;
   background-color: #111111;
   width: 100%;
-  height: 102px;
+  height: ${({ large }) => large ? '102px' : '48px'};
   display: flex;
   align-items: center;
-  padding: 0 24px;
+  padding: 0 calc(${({ large }) => large ? '24px' : '16px'} - 4px);
   margin-bottom: 16px;
 
   > img {
@@ -26,15 +24,5 @@ const FieldContainer = styled.div`
     /* TODO */
   }
 `
-
-const Field = ({ children }) => (
-  <FieldContainer>
-    { children }
-  </FieldContainer>
-)
-
-Field.propTypes = {
-  children: PropTypes.node.isRequired
-}
 
 export default Field
