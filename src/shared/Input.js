@@ -8,9 +8,10 @@ const Input = styled.input.attrs(({ placeholder }) => ({
   width: 100%;
   border: 0;
   outline: none;
-  height: 36px;
+  height: 100%;
   font-size: 17px;
   font-weight: 500;
+  padding: 0;
 
   &:focus {
     outline: none;
@@ -21,19 +22,4 @@ const Input = styled.input.attrs(({ placeholder }) => ({
   }
 `
 
-const NumberInput = styled(Input).attrs(() => ({
-  type: 'number'
-}))`
-  appearance: textfield;
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    appearance: none;
-    margin: 0;
-  }
-`
-
 export default Input
-export {
-  NumberInput
-}

@@ -1,10 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Glyph from './Glyph'
 
-const ButtonContainer = styled.button`
+const Button = styled.button`
   background-color: #1B1B1B;
   display: flex;
   text-decoration: none;
@@ -21,7 +19,7 @@ const ButtonContainer = styled.button`
   outline: none;
   height: 48px;
 
-  > p {
+  > span {
     flex-grow: 1;
     text-align: left;
   }
@@ -42,21 +40,5 @@ const ButtonContainer = styled.button`
     /* TODO */
   }
 `
-
-const Button = ({ as, to, glyph, children, actionGlyph }) => (
-  <ButtonContainer as={as} to={to}>
-    <Glyph name={glyph} />
-    <p>{ children }</p>
-    <Glyph name={actionGlyph || 'arrow'} />
-  </ButtonContainer>
-)
-
-Button.propTypes = {
-  as: PropTypes.elementType,
-  to: PropTypes.string,
-  glyph: PropTypes.string,
-  children: PropTypes.node,
-  actionGlyph: PropTypes.string
-}
 
 export default Button

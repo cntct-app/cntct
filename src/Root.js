@@ -25,10 +25,10 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
-  body, #root {
+  /* body, #root {
     width: 100vw;
     height: 100vh;
-  }
+  } */
   html {
     background-color: black;
   }
