@@ -4,7 +4,7 @@ import Glyph from './Glyph'
 
 const Field = styled.div`
   border: 4px solid #1B1B1B;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: #111111;
   width: 100%;
   height: ${({ large }) => large ? '102px' : '48px'};

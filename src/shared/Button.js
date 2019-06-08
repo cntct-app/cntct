@@ -1,21 +1,22 @@
 import styled from 'styled-components'
 
 import Glyph from './Glyph'
+import theme from './theme'
 
 const Button = styled.button`
-  background-color: #1B1B1B;
+  background-color: ${theme.color.button.background};
   display: flex;
   text-decoration: none;
-  padding: 0 16px;
+  padding: 0 ${theme.dimension.spacing.related};
   align-items: center;
-  color: white;
-  font-family: inherit;
-  font-weight: 600;
-  font-size: 17px;
+  color: ${theme.color.content.primary};
+  font-family: ${theme.text.body.font};
+  font-weight: ${theme.text.title.primary.fontWeight};
+  font-size: ${theme.text.title.primary.size};
   width: 100%;
-  border-radius: 6px;
+  border-radius: ${theme.dimension.cornerRadius};
   border: 0;
-  margin-bottom: 16px;
+  margin-bottom: ${theme.dimension.spacing.related};
   outline: none;
   height: 48px;
 
@@ -25,11 +26,11 @@ const Button = styled.button`
   }
 
   > ${Glyph}:first-child {
-    margin-right: 16px;
+    margin-right: ${theme.dimension.spacing.related};
   }
 
   > ${Glyph}:last-child {
-    margin-left: 16px;
+    margin-left: ${theme.dimension.spacing.related};
   }
 
   &:active {

@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { hot } from 'react-hot-loader/root'
 
@@ -20,6 +20,13 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     font-display: swap;
     src: local('ZCOOL QingKe HuangYou Regular'), local('ZCOOLQingKeHuangYou-Regular'), url(https://fonts.gstatic.com/l/font?kit=2Eb5L_R5IXJEWhD3AOhSvFC554MOOahI4mRIjv26c8ftUxB6aFL5CSg2i_o&skey=bbcabec4d8024b03&v=v4) format('woff2');
+  }
+  
+  @font-face {
+    font-family: system;
+    font-style: normal;
+    font-weight: 300;
+    src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
   }
 
   * {
