@@ -1,0 +1,15 @@
+/* === ZCOOL QingKe HuangYou - regular */
+@font-face {
+	font-family: 'ZCOOL QingKe HuangYou';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("./font/ZcoolQingKeHuangYou-Regular.eot");
+	src: local("ZCOOL QingKe HuangYou Regular"),
+		local("ZCOOLQingKeHuangYou-Regular"),
+		url("./font/ZcoolQingKeHuangYou-Regular.eot") format("embedded-opentype"),
+		url("./font/ZcoolQingKeHuangYou-Regular.woff2") format("woff2"),
+		url("./font/ZcoolQingKeHuangYou-Regular.woff") format("woff"),
+		url("./font/ZcoolQingKeHuangYou-Regular.ttf") format("truetype"),
+		url("./font/ZcoolQingKeHuangYou-Regular.svg") format("svg");
+}

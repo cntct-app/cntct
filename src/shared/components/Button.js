@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import Glyph from './Glyph'
-import theme from './theme'
+import theme from '../theme'
 
 const Button = styled.button`
   background-color: ${theme.color.button.background};
@@ -24,6 +24,7 @@ const Button = styled.button`
     text-align: left;
   }
 
+  /* Add spacing around glyphs inside buttons */
   > ${Glyph}:first-child {
     margin-right: ${theme.dimension.spacing.related};
   }

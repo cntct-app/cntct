@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import Glyph from '../shared/Glyph'
+import Glyph from './Glyph'
 
 const Header = styled.header`
   display: flex;

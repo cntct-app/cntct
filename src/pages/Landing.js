@@ -3,21 +3,23 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 
-import Field from '../shared/Field'
-import Glyph from '../shared/Glyph'
-import Input from '../shared/Input'
+import ButtonLink from '../shared/components/ButtonLink'
+import Header from '../shared/components/Header'
+import Field from '../shared/components/Field'
+import Glyph from '../shared/components/Glyph'
+import Input from '../shared/components/Input'
+import Logo from '../shared/components/Logo'
 import { partyCode } from '../shared/mixins'
-import Header from '../shared/Header'
-import Logo from '../shared/Logo'
-import ButtonLink from '../shared/ButtonLink'
 
 const PartyCodeInput = styled(Input).attrs(() => ({
   type: 'number',
   placeholder: '00000',
   pattern: '[0-9]*'
 }))`
+  /* Include font styles for displaying party codes */
   ${partyCode}
 
+  /* Remove up/down buttons from number input */
   appearance: textfield;
 
   &::-webkit-outer-spin-button,

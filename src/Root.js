@@ -17,30 +17,24 @@ const AppContainer = styled.div`
 `
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'ZCOOL QingKe HuangYou';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: local('ZCOOL QingKe HuangYou Regular'), local('ZCOOLQingKeHuangYou-Regular'), url(https://fonts.gstatic.com/l/font?kit=2Eb5L_R5IXJEWhD3AOhSvFC554MOOahI4mRIjv26c8ftUxB6aFL5CSg2i_o&skey=bbcabec4d8024b03&v=v4) format('woff2');
-  }
+  @import url('https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou&display=swap&text=0123456789');
 
   * {
     box-sizing: border-box;
   }
-  /* body, #root {
-    width: 100vw;
-    height: 100vh;
-  } */
+
   html {
     background-color: black;
   }
+
   body {
     margin: 0;
     color: white;
     font-family: ${theme.text.body.font};
   }
-  h1, p {
+
+  h1, 
+  p {
     margin: 0;
   }
 `

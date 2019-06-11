@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import addGlyph from '../images/glyphs/add.svg'
-import arrowGlyph from '../images/glyphs/arrow.svg'
-import attentionGlyph from '../images/glyphs/attention.svg'
-import codeGlyph from '../images/glyphs/code.svg'
-import infoGlyph from '../images/glyphs/info.svg'
-import proGlyph from '../images/glyphs/pro.svg'
+import addGlyph from '../resources/glyphs/add.svg'
+import arrowGlyph from '../resources/glyphs/arrow.svg'
+import attentionGlyph from '../resources/glyphs/attention.svg'
+import codeGlyph from '../resources/glyphs/code.svg'
+import infoGlyph from '../resources/glyphs/info.svg'
+import proGlyph from '../resources/glyphs/pro.svg'
 
 const Glyph = styled.img.attrs(({ name }) => {
   let source

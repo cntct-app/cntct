@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import Glyph from './Glyph'
-import theme from './theme'
+import theme from '../theme'
 
 const Field = styled.div`
   border: 4px solid #1B1B1B;
