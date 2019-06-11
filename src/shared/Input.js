@@ -10,7 +10,6 @@ const Input = styled.input.attrs(({ placeholder }) => ({
   outline: none;
   height: 100%;
   font-size: 17px;
-  font-weight: 500;
   padding: 0;
 
   &:focus {

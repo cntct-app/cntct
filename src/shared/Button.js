@@ -10,7 +10,6 @@ const Button = styled.button`
   padding: 0 ${theme.dimension.spacing.related};
   align-items: center;
   color: ${theme.color.content.primary};
-  font-family: ${theme.text.body.font};
   font-weight: ${theme.text.title.primary.fontWeight};
   font-size: ${theme.text.title.primary.size};
   width: 100%;

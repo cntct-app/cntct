@@ -1,16 +1,19 @@
 import React from 'react'
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { hot } from 'react-hot-loader/root'
 
 import LandingPage from './pages/Landing'
 import EnterInformationPage from './pages/EnterInformation'
 import NotFound from './pages/NotFound'
+import theme from './shared/theme'
 
 const AppContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 48px 24px;
+  max-width: 600px;
+  margin: 0 auto;
 `
 
 const GlobalStyle = createGlobalStyle`
@@ -20,13 +23,6 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     font-display: swap;
     src: local('ZCOOL QingKe HuangYou Regular'), local('ZCOOLQingKeHuangYou-Regular'), url(https://fonts.gstatic.com/l/font?kit=2Eb5L_R5IXJEWhD3AOhSvFC554MOOahI4mRIjv26c8ftUxB6aFL5CSg2i_o&skey=bbcabec4d8024b03&v=v4) format('woff2');
-  }
-  
-  @font-face {
-    font-family: system;
-    font-style: normal;
-    font-weight: 300;
-    src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
   }
 
   * {
@@ -42,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     color: white;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: ${theme.text.body.font};
   }
   h1, p {
     margin: 0;
