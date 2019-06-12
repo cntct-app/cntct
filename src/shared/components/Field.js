@@ -1,30 +1,30 @@
 import styled from 'styled-components'
 
 import Glyph from './Glyph'
-import theme from '../theme'
+import { dimension, color } from '../theme'
 
 const Field = styled.div`
-  border: 4px solid #1B1B1B;
-  border-radius: ${theme.dimension.cornerRadius};
-  background-color: #111111;
-  width: 100%;
-  height: ${({ large }) => large ? '102px' : '48px'};
+  background-color: ${color.field.background};
+  border: ${dimension.border.width} solid ${color.field.border};
+  border-radius: ${dimension.border.radius};
   display: flex;
+
   align-items: center;
-  padding: 0 calc(${({ large }) => large ? '24px' : '16px'} - 4px);
-  margin-bottom: ${theme.dimension.spacing.related};
+
+  margin-bottom: ${dimension.spacing.related};
+  padding: 0 ${({ large }) => large ? dimension.large.spacing.related : dimension.spacing.related};
+
+  height: ${({ large }) => large ? dimension.large.control : dimension.control};
 
   > ${Glyph} {
-    margin-right: ${theme.dimension.spacing.related};
+    flex-shrink: 0;
+    
+    margin-right: ${dimension.spacing.related};
   }
-
-  &:focus {
-    outline: none;
-    /* TODO */
-  }
-
-  &:active {
-    /* TODO */
+  
+  /* Only supported in modern browsers, but cursor should be enough */
+  &:focus-within {
+    border: ${dimension.border.width} solid ${color.focusBorder};
   }
 `
 

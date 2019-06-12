@@ -1,19 +1,21 @@
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
+import { Normalize } from 'styled-normalize'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { hot } from 'react-hot-loader/root'
 
 import LandingPage from './pages/Landing'
 import EnterInformationPage from './pages/EnterInformation'
 import NotFound from './pages/NotFound'
-import theme from './shared/theme'
+import { dimension, color, text } from './shared/theme'
 
 const AppContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: 48px 24px;
-  max-width: 600px;
+  max-width: ${dimension.appWidth};
+
   margin: 0 auto;
+  padding: ${dimension.large.spacing.separate} ${dimension.spacing.separate};
 `
 
 const GlobalStyle = createGlobalStyle`
@@ -24,15 +26,16 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    background-color: black;
+    background-color: ${color.background};
   }
 
   body {
-    margin: 0;
-    color: white;
-    font-family: ${theme.text.body.font};
+    color: ${color.content.primary};
+
+    font-family: ${text.body.font};
   }
 
+  body,
   h1, 
   p {
     margin: 0;
@@ -43,6 +46,8 @@ const Root = () => (
   <Router>
     <AppContainer>
       <GlobalStyle />
+      <Normalize />
+
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/party/:partyCode' render={EnterInformationPage} />

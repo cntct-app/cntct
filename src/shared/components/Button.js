@@ -1,44 +1,49 @@
 import styled from 'styled-components'
 
 import Glyph from './Glyph'
-import theme from '../theme'
+import { dimension, color, text } from '../theme'
 
 const Button = styled.button`
-  background-color: ${theme.color.button.background};
+  background-color: ${color.button.background};
+  border: ${dimension.border.width} solid transparent;
+  border-radius: ${dimension.border.radius};
+  color: ${color.content.primary};
   display: flex;
-  text-decoration: none;
-  padding: 0 ${theme.dimension.spacing.related};
-  align-items: center;
-  color: ${theme.color.content.primary};
-  font-weight: ${theme.text.title.primary.fontWeight};
-  font-size: ${theme.text.title.primary.size};
-  width: 100%;
-  border-radius: ${theme.dimension.cornerRadius};
-  border: 0;
-  margin-bottom: ${theme.dimension.spacing.related};
   outline: none;
-  height: 48px;
 
+  align-items: center;
+  
+  margin-bottom: ${dimension.spacing.related};
+  padding: 0 calc(${dimension.spacing.related} - ${dimension.border.width});
+
+  height: ${dimension.control};
+
+  font-size: ${text.title.primary.size};
+  font-weight: ${text.title.primary.weight};
+  text-decoration: none;
+  
   > span {
-    flex-grow: 1;
     text-align: left;
+
+    flex-grow: 1;
   }
 
   /* Add spacing around glyphs inside buttons */
   > ${Glyph}:first-child {
-    margin-right: ${theme.dimension.spacing.related};
+    margin-right: ${dimension.spacing.related};
   }
 
   > ${Glyph}:last-child {
-    margin-left: ${theme.dimension.spacing.related};
+    margin-left: ${dimension.spacing.related};
   }
 
   &:active {
-    /* TODO */
+    background: ${color.button.activeBackground};
   }
 
+  &:active, 
   &:focus {
-    /* TODO */
+    border: ${dimension.border.width} solid ${color.focusBorder};
   }
 `
 

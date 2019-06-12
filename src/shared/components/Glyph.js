@@ -7,6 +7,7 @@ import attentionGlyph from '../resources/glyphs/attention.svg'
 import codeGlyph from '../resources/glyphs/code.svg'
 import infoGlyph from '../resources/glyphs/info.svg'
 import proGlyph from '../resources/glyphs/pro.svg'
+import { dimension } from '../theme'
 
 const Glyph = styled.img.attrs(({ name }) => {
   let source
@@ -36,7 +37,8 @@ const Glyph = styled.img.attrs(({ name }) => {
     alt: `${name} icon`
   }
 })`
-  height: ${({ large }) => large ? '28px' : '14px'}
+  width: ${({ large }) => large ? dimension.glyph.large.height : dimension.glyph.height};
+  height: ${({ large }) => large ? dimension.glyph.large.height : dimension.glyph.height};
 `
 
 Glyph.propTypes = {

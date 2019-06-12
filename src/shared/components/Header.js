@@ -1,15 +1,18 @@
 import styled from 'styled-components'
 
 import Glyph from './Glyph'
+import { dimension } from '../theme'
 
 const Header = styled.header`
   display: flex;
   align-items: center;
-  height: 72px;
-  margin-bottom: 16px;
+
+  margin-bottom: ${dimension.spacing.related};
+  
+  height: ${dimension.header.height};
 
   > ${Glyph} {
-    margin-right: 16px;
+    margin-right: ${dimension.spacing.related};
   }
 `
 

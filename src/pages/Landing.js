@@ -14,7 +14,7 @@ import { partyCode } from '../shared/mixins'
 const PartyCodeInput = styled(Input).attrs(() => ({
   type: 'number',
   placeholder: '00000',
-  pattern: '[0-9]*'
+  pattern: '[0-9]*' // For iOS keyboard, not validation
 }))`
   /* Include font styles for displaying party codes */
   ${partyCode}
@@ -25,6 +25,7 @@ const PartyCodeInput = styled(Input).attrs(() => ({
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     appearance: none;
+
     margin: 0;
   }
 `
@@ -48,11 +49,13 @@ class Landing extends Component {
         <Header>
           <Logo />
         </Header>
+
         <main>
           <Field large>
             <Glyph name='code' large />
             <PartyCodeInput onChange={this.onPartyCodeChange} />
           </Field>
+
           <nav>
             <ButtonLink to='/create'>
               <Glyph name='add' />

@@ -8,6 +8,7 @@ import Field from '../shared/components/Field'
 import Glyph from '../shared/components/Glyph'
 import Header from '../shared/components/Header'
 import Input from '../shared/components/Input'
+import { color } from '../shared/theme'
 import { partyCode } from '../shared/mixins'
 
 const PartyCodeTitle = styled.h1`
@@ -16,15 +17,16 @@ const PartyCodeTitle = styled.h1`
 `
 
 const SubmitButton = styled(Button)`
-  background-color: #5674DE;
+  background-color: ${color.brand};
+
   margin-left: auto;
 
   /* Reset width to match text size instead of viewport width */
-  width: inherit; 
+  width: inherit;
 `
 
 const EnterInformation = ({ location }) => {
-  // Extract party code from url e.g. /party/12345 => ['', 'party', '12345']
+  // Extract party code from url
   const partyCode = location.pathname.split('/')[2]
 
   return (
@@ -33,6 +35,7 @@ const EnterInformation = ({ location }) => {
         <Glyph name='code' large />
         <PartyCodeTitle>{partyCode}</PartyCodeTitle>
       </Header>
+
       <main>
         <form>
           <Field>

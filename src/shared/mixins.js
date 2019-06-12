@@ -1,9 +1,11 @@
 import { css } from 'styled-components'
 
+import { text } from './theme'
+
 const partyCode = css`
-  font-family: 'ZCOOL QingKe HuangYou', monospace;
-  font-size: 36px;
-  letter-spacing: 0.37em;
+  font-family: ${text.partyCode.font};
+  font-size: ${text.partyCode.size};
+  letter-spacing: ${text.partyCode.letterSpacing};
 `
 
 export {
