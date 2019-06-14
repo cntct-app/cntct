@@ -13,7 +13,6 @@ import { partyCode } from '../shared/mixins'
 import { dimension } from '../shared/theme'
 
 const PartyCodeInput = styled(Input).attrs(() => ({
-  type: 'number',
   placeholder: '00000',
   pattern: '[0-9]*' // For iOS keyboard, not validation
 }))`
@@ -49,7 +48,7 @@ class Landing extends Component {
   }
   onPartyCodeChange (e) {
     const value = e.target.value
-    const isNumber = /^[0-9]{1,5}$/.test(value)
+    const isNumber = /^[0-9]{0,5}$/.test(value)
 
     console.log(`${value}: ${isNumber}`)
 
