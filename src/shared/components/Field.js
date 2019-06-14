@@ -28,7 +28,6 @@ const Field = styled.div`
   
   /* Only supported in modern browsers, but cursor should be enough */
   &:focus-within {
-    /* border: ${dimension.border.width} solid ${color.focusBorder}; */
     box-shadow: 0px 0px 0px 3px ${color.focusBorder};
   }
 `

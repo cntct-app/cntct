@@ -5,7 +5,8 @@ import { text } from './theme'
 const controlTransitions = css`
   transition: background-color 0.5s ease, box-shadow 0.25s ease;
 
-  &:active, &:hover {
+  &:active,
+  &:hover {
     transition: box-shadow 0.25s ease;
   }
 `
