@@ -2,12 +2,16 @@ import styled from 'styled-components'
 
 import Glyph from './Glyph'
 import { dimension, color } from '../theme'
+import { controlTransitions } from '../mixins'
 
 const Field = styled.div`
+  ${controlTransitions}
+
   background-color: ${color.field.background};
-  border: ${dimension.border.width} solid ${color.field.border};
+  /* border: ${dimension.border.width} solid ${color.field.border}; */
   border-radius: ${dimension.border.radius};
   display: flex;
+  outline: none;
 
   align-items: center;
 
@@ -24,7 +28,8 @@ const Field = styled.div`
   
   /* Only supported in modern browsers, but cursor should be enough */
   &:focus-within {
-    border: ${dimension.border.width} solid ${color.focusBorder};
+    /* border: ${dimension.border.width} solid ${color.focusBorder}; */
+    box-shadow: 0px 0px 0px 3px ${color.focusBorder};
   }
 `
 

@@ -26,6 +26,10 @@ const Input = styled.input.attrs(({ placeholder }) => ({
     opacity: 0.5;
     color: ${color.content.primary};
   }
+
+  &:focus {
+    outline: none;
+  }
 `
 
 export default Input

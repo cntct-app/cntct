@@ -35,12 +35,25 @@ class Landing extends Component {
     super(props)
 
     this.onPartyCodeChange = this.onPartyCodeChange.bind(this)
+
+    this.state = {
+      partyCode: ''
+    }
   }
   onPartyCodeChange (e) {
-    const code = e.target.value
+    const value = e.target.value
+    const isNumber = /^[0-9]{1,5}$/.test(value)
 
-    if (code.toString().length === 5) {
-      this.props.history.push(`/party/${code}`)
+    if (isNumber) {
+      this.setState({
+        partyCode: value
+      })
+
+      const isCode = /^[0-9]{5}$/.test(value)
+
+      if (isCode) {
+        this.props.history.push(`/party/${value}`)
+      }
     }
   }
   render () {
@@ -53,7 +66,7 @@ class Landing extends Component {
         <main>
           <Field large>
             <Glyph name='code' large />
-            <PartyCodeInput onChange={this.onPartyCodeChange} />
+            <PartyCodeInput onChange={this.onPartyCodeChange} value={this.state.partyCode} />
           </Field>
 
           <nav>

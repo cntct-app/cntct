@@ -37,6 +37,9 @@ const Glyph = styled.img.attrs(({ name }) => {
     alt: `${name} icon`
   }
 })`
+  pointer-events: none;
+  user-select: none;
+
   width: ${({ large }) => large ? dimension.glyph.large.height : dimension.glyph.height};
   height: ${({ large }) => large ? dimension.glyph.large.height : dimension.glyph.height};
 `

@@ -1,7 +1,7 @@
 export const color = {
   background: '#000000',
   brand: '#5674DE',
-  focusBorder: '#ffffff20',
+  focusBorder: '#3d3d3d',
   button: {
     background: '#1b1b1b',
     activeBackground: '#252525'

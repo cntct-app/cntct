@@ -1,9 +1,11 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['./src/index.js'],
+  devtool: 'cheap-module-source-map',
   devServer: {
     port: process.env.PORT,
     historyApiFallback: true,
@@ -44,6 +46,7 @@ module.exports = {
       template: './src/index.html',
       base: '/'
     }),
+    new ErrorOverlayPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ]
 }
