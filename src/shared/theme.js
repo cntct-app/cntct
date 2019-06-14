@@ -3,8 +3,7 @@ export const color = {
   brand: '#5674DE',
   focusBorder: '#3d3d3d',
   button: {
-    background: '#1b1b1b',
-    activeBackground: '#252525'
+    background: '#1b1b1b'
   },
   content: {
     important: '#ffd600',
@@ -13,9 +12,12 @@ export const color = {
     secondary: '#ffffffbf'
   },
   field: {
-    background: '#111111',
-    border: '#1B1B1B'
+    background: '#151515'
   }
+}
+
+export const effects = {
+  boxShadowHighlight: '0 0 4px rgba(255, 255, 255, 0.05) inset, 0 1px 0 rgba(255, 255, 255, 0.05) inset'
 }
 
 export const dimension = {
@@ -85,3 +87,5 @@ export const text = {
     }
   }
 }
+
+export const activeLightenAmount = 0.03

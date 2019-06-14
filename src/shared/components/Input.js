@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { color, text } from '../theme'
+import { color, text, dimension } from '../theme'
 
 const Input = styled.input.attrs(({ placeholder }) => ({
   placeholder
@@ -15,7 +15,7 @@ const Input = styled.input.attrs(({ placeholder }) => ({
 
   flex-grow: 1;
 
-  padding: 0;
+  padding: 0 ${({ large }) => large ? dimension.large.spacing.related : dimension.spacing.related};
   
   /* Increase the tap target */
   height: 100%;

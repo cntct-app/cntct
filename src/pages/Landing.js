@@ -10,6 +10,7 @@ import Glyph from '../shared/components/Glyph'
 import Input from '../shared/components/Input'
 import Logo from '../shared/components/Logo'
 import { partyCode } from '../shared/mixins'
+import { dimension } from '../shared/theme'
 
 const PartyCodeInput = styled(Input).attrs(() => ({
   type: 'number',
@@ -22,12 +23,18 @@ const PartyCodeInput = styled(Input).attrs(() => ({
   /* Remove up/down buttons from number input */
   appearance: textfield;
 
+  padding: 0;
+
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     appearance: none;
 
     margin: 0;
   }
+`
+
+const PartyCodeField = styled(Field)`
+  padding: 0 ${({ large }) => large ? dimension.large.spacing.related : dimension.spacing.related};
 `
 
 class Landing extends Component {
@@ -43,6 +50,8 @@ class Landing extends Component {
   onPartyCodeChange (e) {
     const value = e.target.value
     const isNumber = /^[0-9]{1,5}$/.test(value)
+
+    console.log(`${value}: ${isNumber}`)
 
     if (isNumber) {
       this.setState({
@@ -64,10 +73,10 @@ class Landing extends Component {
         </Header>
 
         <main>
-          <Field large>
+          <PartyCodeField large>
             <Glyph name='code' large />
             <PartyCodeInput onChange={this.onPartyCodeChange} value={this.state.partyCode} />
-          </Field>
+          </PartyCodeField>
 
           <nav>
             <ButtonLink to='/create'>

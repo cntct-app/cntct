@@ -1,7 +1,8 @@
 import styled from 'styled-components'
+import { lighten } from 'polished'
 
 import Glyph from './Glyph'
-import { dimension, color, text } from '../theme'
+import { activeLightenAmount, color, dimension, effects, text } from '../theme'
 import { controlTransitions } from '../mixins'
 
 const Button = styled.button.attrs(() => ({
@@ -9,9 +10,12 @@ const Button = styled.button.attrs(() => ({
 }))`
   ${controlTransitions}
 
-  background-color: ${color.button.background};
+  /* Remove default background and include fallback for browsers that don't support gradients */
+  background-color: ${color.button.background}; 
+  background-image: linear-gradient(${lighten(0.03, color.button.background)}, ${color.button.background});
   border: 0;
   border-radius: ${dimension.border.radius};
+  box-shadow: ${effects.boxShadowHighlight};
   color: ${color.content.primary};
   display: flex;
   outline: none;
@@ -48,12 +52,13 @@ const Button = styled.button.attrs(() => ({
 
   &:hover,
   &:active {
-    background: ${color.button.activeBackground};
+    background-color: ${lighten(activeLightenAmount, color.button.background)}; 
+    background-image: linear-gradient(${lighten(0.03 + activeLightenAmount, color.button.background)}, ${lighten(activeLightenAmount, color.button.background)});
   }
 
   &:active, 
   &:focus {
-    box-shadow: 0px 0px 0px 3px ${color.focusBorder};
+    box-shadow: ${effects.boxShadowHighlight}, 0 0 0 3px ${color.focusBorder};
     outline: none;
   }
 `
