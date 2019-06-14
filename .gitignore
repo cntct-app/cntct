@@ -1,4 +1,6 @@
-https://prod.liveshare.vsengsaas.visualstudio.com/join?BF5199A1B7EC3482DDE90FE57E729DBA0E56
+# Custom
+dist/
+
 # Created by https://www.gitignore.io/api/node,macos,windows
 # Edit at https://www.gitignore.io/?templates=node,macos,windows
 
