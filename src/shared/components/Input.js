@@ -22,6 +22,10 @@ const Input = styled.input.attrs(({ placeholder }) => ({
 
   font-size: ${text.body.primary.size};
 
+  &:not(:-webkit-autofill)::-webkit-contacts-auto-fill-button {
+    background-color: #fff;
+  }
+
   &::placeholder {
     opacity: 0.5;
     color: ${color.content.primary};
