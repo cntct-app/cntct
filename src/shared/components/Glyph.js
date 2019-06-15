@@ -37,6 +37,8 @@ const Glyph = styled.img.attrs(({ name }) => {
     alt: `${name} icon`
   }
 })`
+  flex-shrink: 0;
+  
   pointer-events: none;
   user-select: none;
 

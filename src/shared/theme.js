@@ -78,10 +78,14 @@ export const text = {
   },
   title: {
     primary: {
-      size: '17px',
+      size: '24px',
       weight: '600'
     },
     secondary: {
+      size: '17px',
+      weight: '600'
+    },
+    tertiary: {
       size: '13px',
       weight: '600'
     }

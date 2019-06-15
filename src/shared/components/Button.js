@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { lighten } from 'polished'
 
 import Glyph from './Glyph'
@@ -28,11 +28,16 @@ const Button = styled.button.attrs(() => ({
   width: 100%;
   height: ${dimension.control};
 
-  font-size: ${text.title.primary.size};
-  font-weight: ${text.title.primary.weight};
+  font-size: ${text.title.secondary.size};
+  font-weight: ${text.title.secondary.weight};
   text-decoration: none;
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  ${props => props.disabled && css`
+    opacity: 0.65;
+    cursor: not-allowed;
+  `}
   
   > span {
     text-align: left;

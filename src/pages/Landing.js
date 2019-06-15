@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
+import isInt from 'validator/lib/isInt'
 
 import ButtonLink from '../shared/components/ButtonLink'
 import Header from '../shared/components/Header'
@@ -48,18 +49,13 @@ class Landing extends Component {
   }
   onPartyCodeChange (e) {
     const value = e.target.value
-    const isNumber = /^[0-9]{0,5}$/.test(value)
 
-    console.log(`${value}: ${isNumber}`)
-
-    if (isNumber) {
+    if (isInt(value)) {
       this.setState({
         partyCode: value
       })
 
-      const isCode = /^[0-9]{5}$/.test(value)
-
-      if (isCode) {
+      if (value.length === 5) {
         this.props.history.push(`/party/${value}`)
       }
     }
