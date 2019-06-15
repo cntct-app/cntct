@@ -15,7 +15,7 @@ const AppContainer = styled.div`
   max-width: ${dimension.appWidth};
 
   margin: 0 auto;
-  padding: ${dimension.large.spacing.separate} ${dimension.spacing.separate};
+  padding: calc(${dimension.spacing.separate} * 2) ${dimension.spacing.separate};
 `
 
 const GlobalStyle = createGlobalStyle`
@@ -37,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
 
   body,
   h1, 
+  h2,
   p {
     margin: 0;
   }

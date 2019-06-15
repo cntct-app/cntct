@@ -20,9 +20,7 @@ const Field = styled.div`
   
   height: ${({ large }) => large ? dimension.large.control : dimension.control};
 
-  > ${Glyph} {
-    flex-shrink: 0;
-    
+  > ${Glyph} {    
     margin-right: ${dimension.spacing.related};
   }
   

@@ -1,18 +1,25 @@
 import styled from 'styled-components'
 
-import Glyph from './Glyph'
 import { dimension } from '../theme'
 
 const Header = styled.header`
   display: flex;
-  align-items: center;
 
-  margin-bottom: ${dimension.spacing.related};
+  flex-direction: column;
+  justify-content: center;
+  
+  margin-bottom: ${dimension.spacing.separate};
   
   height: ${dimension.header.height};
 
-  > ${Glyph} {
-    margin-right: ${dimension.spacing.related};
+  /* Party Code */
+  > div {
+    margin-bottom: ${dimension.spacing.connected}
+  }
+
+  /* Logo */
+  > img {
+    margin-right: auto;
   }
 `
 
