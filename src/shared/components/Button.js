@@ -23,7 +23,6 @@ const Button = styled.button.attrs(() => ({
 
   align-items: center;
   
-  margin-bottom: ${dimension.spacing.related};
   padding: 0 ${dimension.spacing.related};
 
   width: 100%;

@@ -15,8 +15,6 @@ const Field = styled.div`
   outline: none;
 
   align-items: center;
-
-  margin-bottom: ${dimension.spacing.related};
   
   height: ${({ large }) => large ? dimension.large.control : dimension.control};
 

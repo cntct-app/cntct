@@ -40,6 +40,14 @@ const GlobalStyle = createGlobalStyle`
   p {
     margin: 0;
   }
+
+  form > *, main > *, nav > * {
+    margin-bottom: ${dimension.spacing.related};
+  }
+
+  form > *:last-child, main > *:last-child, nav > *:last-child {
+    margin-bottom: 0;
+  }
 `
 
 const Root = () => (
