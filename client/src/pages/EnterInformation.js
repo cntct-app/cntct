@@ -47,8 +47,6 @@ class EnterInformation extends Component {
     this.onEmailChange = this.onEmailChange.bind(this)
     this.validate = this.validate.bind(this)
 
-    this.phoneFormatter = new AsYouType()
-
     this.state = {
       name: '',
       phone: '',
@@ -62,8 +60,11 @@ class EnterInformation extends Component {
     }, () => this.validate())
   }
   onPhoneChange (e) {
+    const value = e.target.value
+    const formatted = new AsYouType('US').input(value)
+
     this.setState({
-      phone: e.target.value
+      phone: formatted
     }, () => this.validate())
   }
   onEmailChange (e) {
@@ -101,7 +102,7 @@ class EnterInformation extends Component {
             </Field>
 
             <Field>
-              <Input placeholder='Phone Number' type='tel' name='phone' onChange={this.onPhoneChange} value={this.state.phone} />
+              <Input placeholder='Phone Number' type='tel' name='phone' autocomplete='tel' onChange={this.onPhoneChange} value={this.state.phone} />
             </Field>
 
             <Field>
