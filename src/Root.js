@@ -10,12 +10,12 @@ import NotFound from './pages/NotFound'
 import { dimension, color, text } from './shared/theme'
 
 const AppContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  max-width: ${dimension.appWidth};
-
   margin: 0 auto;
   padding: calc(${dimension.spacing.separate} * 2) ${dimension.spacing.separate};
+
+  max-width: ${dimension.appWidth};
+  width: 100%;
+  height: 100%;
 `
 
 const GlobalStyle = createGlobalStyle`
@@ -31,7 +31,6 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     color: ${color.content.primary};
-
     font-family: ${text.body.font};
   }
 
@@ -54,8 +53,8 @@ const GlobalStyle = createGlobalStyle`
 const Root = () => (
   <Router>
     <AppContainer>
-      <GlobalStyle />
       <Normalize />
+      <GlobalStyle />
 
       <Switch>
         <Route exact path='/' component={LandingPage} />
