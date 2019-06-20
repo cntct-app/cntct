@@ -5,7 +5,7 @@ import { lighten } from 'polished'
 import { withRouter } from 'react-router-dom'
 import isMobilePhone from 'validator/lib/isMobilePhone'
 import isEmail from 'validator/lib/isEmail'
-import { AsYouType } from 'libphonenumber-js'
+import { parseIncompletePhoneNumber, formatIncompletePhoneNumber } from 'libphonenumber-js'
 
 import Header from '../shared/components/Header'
 import PartyCode from '../shared/components/PartyCode'
@@ -13,12 +13,24 @@ import Field from '../shared/components/Field'
 import Input from '../shared/components/Input'
 import Button from '../shared/components/Button'
 import Glyph from '../shared/components/Glyph'
-import { activeLightenAmount, color, text } from '../shared/theme'
+import { activeLightenAmount, color, dimension, text } from '../shared/theme'
 
 const PartyName = styled.h2`
   color: ${color.content.secondary};
   font-weight: ${text.title.secondary.weight};
   font-size: ${text.title.secondary.size};
+`
+
+const NameContainer = styled.div`
+  display: flex;
+
+  > *:first-child {
+    margin-right: ${dimension.spacing.related}
+  }
+
+  > * {
+    flex-grow: 1;
+  }
 `
 
 const SubmitButton = styled(Button)`
@@ -42,43 +54,43 @@ class EnterInformation extends Component {
   constructor (props) {
     super(props)
 
-    this.onNameChange = this.onNameChange.bind(this)
-    this.onPhoneChange = this.onPhoneChange.bind(this)
-    this.onEmailChange = this.onEmailChange.bind(this)
-    this.validate = this.validate.bind(this)
+    this.onInputChange = this.onInputChange.bind(this)
 
     this.state = {
-      name: '',
+      firstName: '',
+      lastName: '',
       phone: '',
       email: '',
       isValid: false
     }
   }
-  onNameChange (e) {
-    this.setState({
-      name: e.target.value
-    }, () => this.validate())
-  }
-  onPhoneChange (e) {
-    const value = e.target.value
-    const formatted = new AsYouType('US').input(value)
+  onInputChange (e) {
+    const key = e.target.name
+    let value = e.target.value
+
+    if (key === 'phone') {
+      let newValue = parseIncompletePhoneNumber(value)
+
+      if (formatIncompletePhoneNumber(newValue) === this.state.phone) {
+        newValue = newValue.slice(0, -1)
+      }
+
+      value = newValue
+    }
 
     this.setState({
-      phone: formatted
-    }, () => this.validate())
-  }
-  onEmailChange (e) {
-    this.setState({
-      email: e.target.value
+      [key]: value
     }, () => this.validate())
   }
   validate () {
-    const isNameValid = this.state.name.length > 0
-    const isPhoneBlank = this.state.phone.length === 0
-    const isPhoneValid = isMobilePhone(this.state.phone)
-    const isEmailBlank = this.state.email.length === 0
-    const isEmailValid = isEmail(this.state.email)
-    const isFormValid = isNameValid && ((isPhoneValid && isEmailBlank) || (isEmailValid && isPhoneBlank) || (isEmailValid && isPhoneValid))
+    const { firstName, lastName, phone, email } = this.state
+    const isFirstNameValid = firstName.length > 0
+    const isLastNameValid = lastName.length > 0
+    const isPhoneBlank = phone.length === 0
+    const isPhoneValid = isMobilePhone(phone)
+    const isEmailBlank = email.length === 0
+    const isEmailValid = isEmail(email)
+    const isFormValid = isFirstNameValid && isLastNameValid && ((isPhoneValid && isEmailBlank) || (isEmailValid && isPhoneBlank) || (isEmailValid && isPhoneValid))
 
     this.setState({
       isValid: isFormValid
@@ -96,17 +108,23 @@ class EnterInformation extends Component {
         </Header>
 
         <main>
-          <form>
+          <form method='POST' action={`/api/party/${partyCode}/add`}>
+            <NameContainer>
+              <Field>
+                <Input placeholder='First Name' name='firstName' onChange={this.onInputChange} value={this.state.firstName} />
+              </Field>
+
+              <Field>
+                <Input placeholder='Last Name' name='lastName' onChange={this.onInputChange} value={this.state.lastName} />
+              </Field>
+            </NameContainer>
+
             <Field>
-              <Input placeholder='Name' name='name' onChange={this.onNameChange} value={this.state.name} />
+              <Input placeholder='Phone Number' type='tel' name='phone' autocomplete='tel' onChange={this.onInputChange} value={formatIncompletePhoneNumber(this.state.phone, 'US')} />
             </Field>
 
             <Field>
-              <Input placeholder='Phone Number' type='tel' name='phone' autocomplete='tel' onChange={this.onPhoneChange} value={this.state.phone} />
-            </Field>
-
-            <Field>
-              <Input placeholder='Email Address' type='email' name='email' onChange={this.onEmailChange} value={this.state.email} />
+              <Input placeholder='Email Address' type='email' name='email' onChange={this.onInputChange} value={this.state.email} />
             </Field>
 
             <SubmitButton disabled={!this.state.isValid}>

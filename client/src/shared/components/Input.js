@@ -18,6 +18,7 @@ const Input = styled.input.attrs(({ placeholder }) => ({
   padding: 0 ${({ large }) => large ? dimension.large.spacing.related : dimension.spacing.related};
   
   /* Increase the tap target */
+  width: 100%;
   height: 100%;
 
   font-size: ${text.body.primary.size};
