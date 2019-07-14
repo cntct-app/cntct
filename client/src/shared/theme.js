@@ -12,7 +12,7 @@ export const color = {
     secondary: '#ffffffbf'
   },
   field: {
-    background: '#151515'
+    background: '#191919'
   }
 }
 
