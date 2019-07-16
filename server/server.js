@@ -78,11 +78,12 @@ app.get('/party/:code', async (req, res) => {
 })
 
 // Join a party
-app.post('/party/join', async (req, res) => {
-  const { firstName, lastName, phone, email, partyCode } = req.body
+app.post('/party/:code/join', async (req, res) => {
+  const { firstName, lastName, phone, email } = req.body
+  const { code } = req.params
 
   try {
-    const party = await Party.findOne({ code: partyCode })
+    const party = await Party.findOne({ code })
 
     if (!party) {
       return res.status(404).json({ error: 'Party does not exist' })
@@ -93,7 +94,7 @@ app.post('/party/join', async (req, res) => {
       lastName,
       phone,
       email,
-      partyCode
+      partyCode: code
     })
 
     res.json({ message: `${user.firstName} successfully joined '${party.name}' party` })
