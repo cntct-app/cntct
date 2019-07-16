@@ -4,13 +4,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 
 module.exports = {
-  entry: ['./src/index.js'],
+  entry: ['whatwg-fetch', './src/index.js'],
   devtool: 'cheap-module-source-map',
   devServer: {
     port: process.env.PORT,
     historyApiFallback: true,
     host: '0.0.0.0',
-    hot: true
+    hot: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5001',
+        pathRewrite: { '^/api': '' }
+      }
+    }
   },
   output: {
     filename: 'bundle.js',

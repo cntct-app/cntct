@@ -20,7 +20,8 @@
     "react-router-dom": "^5.0.0",
     "styled-components": "^4.2.1",
     "styled-normalize": "^8.0.6",
-    "validator": "^11.0.0"
+    "validator": "^11.0.0",
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
