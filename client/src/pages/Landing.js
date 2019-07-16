@@ -50,7 +50,7 @@ class Landing extends Component {
   onPartyCodeChange (e) {
     const value = e.target.value
 
-    if (isInt(value)) {
+    if (isInt(value) || value.length === 0) {
       this.setState({
         partyCode: value
       })
