@@ -6,6 +6,7 @@ import arrowGlyph from '../resources/glyphs/arrow.svg'
 import attentionGlyph from '../resources/glyphs/attention.svg'
 import codeGlyph from '../resources/glyphs/code.svg'
 import infoGlyph from '../resources/glyphs/info.svg'
+import importantGlyph from '../resources/glyphs/important.svg'
 import errorGlyph from '../resources/glyphs/error.svg'
 import proGlyph from '../resources/glyphs/pro.svg'
 import { dimension } from '../theme'
@@ -28,6 +29,9 @@ const Glyph = styled.img.attrs(({ name }) => {
       break
     case 'info':
       source = infoGlyph
+      break
+    case 'important':
+      source = importantGlyph
       break
     case 'error':
       source = errorGlyph

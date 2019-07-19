@@ -24,6 +24,17 @@ const NameContainer = styled.div`
   }
 `
 
+const Info = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+
+  > img {
+    margin-right: ${dimension.spacing.connected};
+    fill: ${color.content.important}
+  }
+`
+
 const SubmitButton = styled(Button)`
   /* Remove default background and include fallback for browsers that don't support gradients */
   background-color: ${color.brand}; 
@@ -117,31 +128,37 @@ class MemberForm extends Component {
   }
   render () {
     return (
-      <form onSubmit={this.onSubmit}>
-        <NameContainer>
+      <>
+        <Info>
+          <Glyph name='important' />
+          <p>We only store your data temporarily</p>
+        </Info>
+        <form onSubmit={this.onSubmit}>
+          <NameContainer>
+            <Field>
+              <Input placeholder='First Name' name='firstName' onChange={this.onInputChange} value={this.state.firstName} />
+            </Field>
+
+            <Field>
+              <Input placeholder='Last Name' name='lastName' onChange={this.onInputChange} value={this.state.lastName} />
+            </Field>
+          </NameContainer>
+
           <Field>
-            <Input placeholder='First Name' name='firstName' onChange={this.onInputChange} value={this.state.firstName} />
+            <Input placeholder='Phone Number' type='tel' name='phone' autocomplete='tel' onChange={this.onInputChange} value={formatIncompletePhoneNumber(this.state.phone, 'US')} />
           </Field>
 
           <Field>
-            <Input placeholder='Last Name' name='lastName' onChange={this.onInputChange} value={this.state.lastName} />
+            <Input placeholder='Email Address' type='email' name='email' onChange={this.onInputChange} value={this.state.email} />
           </Field>
-        </NameContainer>
 
-        <Field>
-          <Input placeholder='Phone Number' type='tel' name='phone' autocomplete='tel' onChange={this.onInputChange} value={formatIncompletePhoneNumber(this.state.phone, 'US')} />
-        </Field>
-
-        <Field>
-          <Input placeholder='Email Address' type='email' name='email' onChange={this.onInputChange} value={this.state.email} />
-        </Field>
-
-        <SubmitButton disabled={!this.state.isValid}>
-          {/* span instead of p because block elements are not allowed in buttons */}
-          <span>Continue</span>
-          <Glyph name='arrow' />
-        </SubmitButton>
-      </form>
+          <SubmitButton disabled={!this.state.isValid}>
+            {/* span instead of p because block elements are not allowed in buttons */}
+            <span>Continue</span>
+            <Glyph name='arrow' />
+          </SubmitButton>
+        </form>
+      </>
     )
   }
 }
