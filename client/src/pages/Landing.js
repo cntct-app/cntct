@@ -152,7 +152,7 @@ class Landing extends Component {
         <Footer>
           <img src={crunchLogo} />
           <Link to='/terms'>Terms</Link>
-          <Link to='/privacy'>Privacy Policy</Link>
+          <Link to='/privacy'>Privacy</Link>
         </Footer>
       </>
     )
