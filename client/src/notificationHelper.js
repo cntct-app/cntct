@@ -4,8 +4,11 @@ const subscribe = cb => {
   subscribers.push(cb)
 }
 
-const add = notification => {
-  subscribers.forEach(cb => cb(notification))
+const add = ({ content, type = 'info' }) => {
+  subscribers.forEach(cb => cb({
+    content,
+    type
+  }))
 }
 
 export {

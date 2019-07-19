@@ -104,6 +104,11 @@ class Landing extends Component {
               hasError: true
             })
 
+            window.notificationHelper.add({
+              type: 'error',
+              content: 'Party not found'
+            })
+
             return
           }
 
