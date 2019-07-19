@@ -36,6 +36,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     color: ${color.content.primary};
     font-family: ${text.body.font};
+    font-size: ${text.body.primary.size};
+    font-weight: ${text.body.primary.weight};
   }
 
   body,
@@ -51,11 +53,6 @@ const GlobalStyle = createGlobalStyle`
 
   form > *:last-child, main > *:last-child, nav > *:last-child {
     margin-bottom: 0;
-  }
-
-  p {
-    font-size: ${text.body.primary.size};
-    font-weight: ${text.body.primary.weight};
   }
 `
 
