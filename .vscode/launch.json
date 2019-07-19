@@ -12,6 +12,10 @@
             "program": "${workspaceFolder}/server/server.js",
             "restart": true,
             "console": "integratedTerminal",
+            "args": [
+                "--watch",
+                "./server"
+            ],
             "internalConsoleOptions": "neverOpen"
         },
         {
