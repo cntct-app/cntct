@@ -7,12 +7,19 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "nodemon",
-            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/nodemon",
-            "program": "${workspaceFolder}/server.js",
+            "name": "Launch server",
+            "runtimeExecutable": "${workspaceFolder}/server/node_modules/.bin/nodemon",
+            "program": "${workspaceFolder}/server/server.js",
             "restart": true,
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Open client",
+            "url": "http://localhost:5000",
+            "webRoot": "${workspaceFolder}/client"
         }
     ]
 }
