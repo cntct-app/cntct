@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const Party = require('./models/Party')
-const User = require('./models/User')
+const Member = require('./models/Member')
 const { generatePartyCode } = require('./util')
 
 // Create server
@@ -89,7 +89,7 @@ app.post('/party/:code/join', async (req, res) => {
       return res.status(404).json({ error: 'Party does not exist' })
     }
 
-    const user = await User.create({
+    const member = await Member.create({
       firstName,
       lastName,
       phone,
@@ -97,15 +97,15 @@ app.post('/party/:code/join', async (req, res) => {
       partyCode: code
     })
 
-    res.json({ message: `${user.firstName} successfully joined '${party.name}' party` })
+    res.json({ message: `${member.firstName} successfully joined '${party.name}' party` })
   } catch (err) {
     console.error(`Error joining party: ${err}`)
     res.status(500).json({ error: 'Failed to join party' })
   }
 })
 
-// Get users in party
-app.get('/party/:code/users', async (req, res) => {
+// Get members in party
+app.get('/party/:code/members', async (req, res) => {
   try {
     const code = req.params.code
     const party = await Party.findOne({ code })
@@ -114,14 +114,14 @@ app.get('/party/:code/users', async (req, res) => {
       return res.status(404).json({ error: 'Party does not exist' })
     }
 
-    const users = await User.find({
+    const members = await Member.find({
       partyCode: code
     })
 
-    res.json({ users })
+    res.json({ members })
   } catch (err) {
-    console.error(`Error getting users in party: ${err}`)
-    res.status(500).json({ error: 'Failed to get users in party' })
+    console.error(`Error getting members in party: ${err}`)
+    res.status(500).json({ error: 'Failed to get members in party' })
   }
 })
 

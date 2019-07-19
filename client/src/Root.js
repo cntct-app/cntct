@@ -4,8 +4,9 @@ import { Normalize } from 'styled-normalize'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { hot } from 'react-hot-loader/root'
 
-import LandingPage from './pages/Landing'
-import EnterInformationPage from './pages/EnterInformation'
+import Notifications from './shared/components/Notifications'
+import Landing from './pages/Landing'
+import Party from './pages/Party'
 import NotFound from './pages/NotFound'
 import { dimension, color, text } from './shared/theme'
 
@@ -51,21 +52,24 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Root = () => (
-  <Router>
-    <AppContainer>
-      <Normalize />
-      <GlobalStyle />
+  <>
+    <Notifications />
+    <Router>
+      <AppContainer>
+        <Normalize />
+        <GlobalStyle />
 
-      <Switch>
-        <Route exact path='/' component={LandingPage} />
-        <Route exact path='/party/:partyCode' render={EnterInformationPage} />
-        <Route exact path='/create' render={() => <h1>Create Party</h1>} />
-        <Route exact path='/help' render={() => <h1>How to Use</h1>} />
-        <Route exact path='/pro' render={() => <h1>Get Pro</h1>} />
-        <Route component={NotFound} />
-      </Switch>
-    </AppContainer>
-  </Router>
+        <Switch>
+          <Route exact path='/' component={Landing} />
+          <Route path='/party/:partyCode' render={Party} />
+          <Route exact path='/create' render={() => <h1>Create Party</h1>} />
+          <Route exact path='/help' render={() => <h1>How to Use</h1>} />
+          <Route exact path='/pro' render={() => <h1>Get Pro</h1>} />
+          <Route component={NotFound} />
+        </Switch>
+      </AppContainer>
+    </Router>
+  </>
 )
 
 export default hot(Root)

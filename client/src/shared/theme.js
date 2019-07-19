@@ -1,6 +1,21 @@
+import { lighten } from 'polished'
+
+const gradientLightenAmount = 0.03
+const activeLightenAmount = 0.03
+
+export const generateActiveColor = color => lighten(activeLightenAmount, color)
+
+export const generateHighlightBoxShadow = color => `0 0 4px rgba(255, 255, 255, 0.05) inset, 0 1px 0 ${color} inset`
+
+export const generateGradient = (color, isActive = false) => {
+  const lightenAmount = isActive ? activeLightenAmount : 0
+  return `linear-gradient(${lighten(gradientLightenAmount + lightenAmount, color)}, ${lighten(lightenAmount, color)})`
+}
+
 export const color = {
   background: '#000000',
   brand: '#5674DE',
+  error: '#ea3939',
   focusBorder: '#3d3d3d',
   button: {
     background: '#1b1b1b'
@@ -16,22 +31,23 @@ export const color = {
   }
 }
 
-export const effects = {
-  boxShadowHighlight: '0 0 4px rgba(255, 255, 255, 0.05) inset, 0 1px 0 rgba(255, 255, 255, 0.05) inset'
+export const effect = {
+  dropShadow: '0px 2px 4px rgba(0, 0, 0, 0.25)'
+}
+
+export const highlight = {
+  brand: '#81AAEC',
+  button: '#333333',
+  error: '#F35B5B',
+  field: '#282828'
 }
 
 export const dimension = {
   appWidth: '600px',
+  control: '48px',
   border: {
     radius: '8px',
     width: '4px'
-  },
-  control: '48px',
-  large: {
-    control: '102px',
-    spacing: {
-      related: '24px'
-    }
   },
   glyph: {
     height: '14px',
@@ -41,6 +57,12 @@ export const dimension = {
   },
   header: {
     height: '72px'
+  },
+  large: {
+    control: '102px',
+    spacing: {
+      related: '24px'
+    }
   },
   spacing: {
     connected: '8px',
@@ -91,5 +113,3 @@ export const text = {
     }
   }
 }
-
-export const activeLightenAmount = 0.03

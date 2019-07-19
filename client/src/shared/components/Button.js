@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components'
-import { lighten } from 'polished'
 
 import Glyph from './Glyph'
-import { activeLightenAmount, color, dimension, effects, text } from '../theme'
+import { color, dimension, generateActiveColor, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
 import { controlTransitions } from '../mixins'
 
 const Button = styled.button.attrs(() => ({
@@ -12,11 +11,12 @@ const Button = styled.button.attrs(() => ({
 
   /* Remove default background and include fallback for browsers that don't support gradients */
   background-color: ${color.button.background}; 
-  background-image: linear-gradient(${lighten(0.03, color.button.background)}, ${color.button.background});
+  background-image: ${generateGradient(color.button.background)};
   border: 0;
   border-radius: ${dimension.border.radius};
-  box-shadow: ${effects.boxShadowHighlight};
+  box-shadow: ${generateHighlightBoxShadow(highlight.button)};
   color: ${color.content.primary};
+
   display: flex;
   outline: none;
   user-select: none;
@@ -56,13 +56,13 @@ const Button = styled.button.attrs(() => ({
 
   &:hover,
   &:active {
-    background-color: ${lighten(activeLightenAmount, color.button.background)}; 
-    background-image: linear-gradient(${lighten(0.03 + activeLightenAmount, color.button.background)}, ${lighten(activeLightenAmount, color.button.background)});
+    background-color: ${generateActiveColor(color.button.background)};
+    background-image: ${generateGradient(color.button.background, true)};
   }
 
   &:active, 
   &:focus {
-    box-shadow: ${effects.boxShadowHighlight}, 0 0 0 3px ${color.focusBorder};
+    box-shadow: ${generateHighlightBoxShadow(highlight.button)}, 0 0 0 3px ${color.focusBorder};
     outline: none;
   }
 `

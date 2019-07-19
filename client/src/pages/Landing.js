@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { opacify } from 'polished'
 import { withRouter } from 'react-router-dom'
 import isInt from 'validator/lib/isInt'
 
@@ -11,7 +12,7 @@ import Glyph from '../shared/components/Glyph'
 import Input from '../shared/components/Input'
 import Logo from '../shared/components/Logo'
 import { partyCode } from '../shared/mixins'
-import { dimension } from '../shared/theme'
+import { dimension, color } from '../shared/theme'
 
 const PartyCodeInput = styled(Input).attrs(() => ({
   placeholder: '00000',
@@ -35,6 +36,13 @@ const PartyCodeInput = styled(Input).attrs(() => ({
 
 const PartyCodeField = styled(Field)`
   padding: 0 ${({ large }) => large ? dimension.large.spacing.related : dimension.spacing.related};
+
+  /* & increases specificity */
+  && {
+    ${({ hasError }) => hasError && css`
+      box-shadow: 0 0 0 3px ${opacify(-0.2, color.error)};
+    `}
+  }
 `
 
 class Landing extends Component {
@@ -44,19 +52,37 @@ class Landing extends Component {
     this.onPartyCodeChange = this.onPartyCodeChange.bind(this)
 
     this.state = {
-      partyCode: ''
+      partyCode: '',
+      hasError: false
     }
   }
-  onPartyCodeChange (e) {
-    const value = e.target.value
+  async onPartyCodeChange (e) {
+    const partyCode = e.target.value
+    const isPartyCode = isInt(partyCode) || partyCode.length === 0
 
-    if (isInt(value) || value.length === 0) {
+    if (isPartyCode && partyCode.length <= 5) {
       this.setState({
-        partyCode: value
+        partyCode: partyCode,
+        hasError: false
       })
 
-      if (value.length === 5) {
-        this.props.history.push(`/party/${value}`)
+      if (partyCode.length === 5) {
+        try {
+          const resp = await fetch(`/api/party/${partyCode}`)
+          const { party } = await resp.json()
+
+          if (!party) {
+            this.setState({
+              hasError: true
+            })
+
+            return
+          }
+
+          this.props.history.push(`/party/${partyCode}`)
+        } catch (err) {
+          console.error(`Error checking if party exists: ${err}`)
+        }
       }
     }
   }
@@ -68,7 +94,7 @@ class Landing extends Component {
         </Header>
 
         <main>
-          <PartyCodeField large>
+          <PartyCodeField large hasError={this.state.hasError}>
             <Glyph name='code' large />
             <PartyCodeInput onChange={this.onPartyCodeChange} value={this.state.partyCode} />
           </PartyCodeField>
