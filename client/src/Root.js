@@ -55,6 +55,7 @@ const GlobalStyle = createGlobalStyle`
 
   p {
     font-size: ${text.body.primary.size};
+    font-weight: ${text.body.primary.weight};
   }
 `
 
