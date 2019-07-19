@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
+import { Link, withRouter } from 'react-router-dom'
 import { opacify } from 'polished'
-import { withRouter } from 'react-router-dom'
 import isInt from 'validator/lib/isInt'
 
 import ButtonLink from '../shared/components/ButtonLink'
@@ -11,8 +11,21 @@ import Field from '../shared/components/Field'
 import Glyph from '../shared/components/Glyph'
 import Input from '../shared/components/Input'
 import Logo from '../shared/components/Logo'
+import crunchLogo from '../shared/resources/crunch.svg'
 import { partyCode } from '../shared/mixins'
 import { dimension, color } from '../shared/theme'
+
+const MainContainer = styled.main`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-bottom: ${dimension.spacing.separate};
+
+  > p {
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: auto;
+  }
+`
 
 const PartyCodeInput = styled(Input).attrs(() => ({
   placeholder: '00000',
@@ -42,6 +55,21 @@ const PartyCodeField = styled(Field)`
     ${({ hasError }) => hasError && css`
       box-shadow: 0 0 0 3px ${opacify(-0.2, color.error)};
     `}
+  }
+`
+
+const Footer = styled.footer`
+  display: flex;
+  align-items: center;
+
+  > img {
+    margin-right: auto;
+  }
+
+  > a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: underline;
+    margin-left: ${dimension.spacing.related};
   }
 `
 
@@ -93,7 +121,7 @@ class Landing extends Component {
           <Logo />
         </Header>
 
-        <main>
+        <MainContainer>
           <PartyCodeField large hasError={this.state.hasError}>
             <Glyph name='code' large />
             <PartyCodeInput onChange={this.onPartyCodeChange} value={this.state.partyCode} />
@@ -106,19 +134,26 @@ class Landing extends Component {
               <Glyph name='arrow' />
             </ButtonLink>
 
-            <ButtonLink to='/help' glyph='info'>
-              <Glyph name='info' />
-              <span>How to Use</span>
-              <Glyph name='arrow' />
-            </ButtonLink>
-
             <ButtonLink to='/pro' glyph='pro'>
               <Glyph name='pro' />
               <span>Get Pro</span>
               <Glyph name='arrow' />
             </ButtonLink>
+
+            <ButtonLink to='/about' glyph='info'>
+              <Glyph name='info' />
+              <span>Learn More</span>
+              <Glyph name='arrow' />
+            </ButtonLink>
           </nav>
-        </main>
+          <p>If you’re trying to join others, ask for a party code.</p>
+        </MainContainer>
+
+        <Footer>
+          <img src={crunchLogo} />
+          <Link to='/terms'>Terms</Link>
+          <Link to='/privacy'>Privacy Policy</Link>
+        </Footer>
       </>
     )
   }

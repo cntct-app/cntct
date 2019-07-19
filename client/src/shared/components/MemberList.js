@@ -11,12 +11,14 @@ class MemberList extends Component {
     }
   }
   async componentDidMount () {
-    console.log('test')
-    const resp = await fetch(`/api/party/${this.props.match.params.partyCode}/members`)
-    const data = await resp.json()
+    try {
+      const resp = await fetch(`/api/party/${this.props.match.params.partyCode}/members`)
+      const { members } = await resp.json()
 
-    console.log(data)
-    this.setState({ members })
+      this.setState({ members })
+    } catch (err) {
+      console.error(`Error getting members: ${err}`)
+    }
   }
   render () {
     return (

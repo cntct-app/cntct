@@ -94,19 +94,24 @@ class MemberForm extends Component {
     const { firstName, lastName, phone, email } = this.state
     const { partyCode } = this.props.match.params
 
-    await fetch(`/api/party/${partyCode}/join`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        phone,
-        email
+    try {
+      await fetch(`/api/party/${partyCode}/join`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          phone,
+          email
+        })
       })
-    })
+    } catch (err) {
+      console.error(`Error joining party: ${err}`)
+      return
+    }
 
     this.props.history.push(`${this.props.location.pathname}/list`)
   }

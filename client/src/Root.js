@@ -14,9 +14,12 @@ const AppContainer = styled.div`
   margin: 0 auto;
   padding: calc(${dimension.spacing.separate} * 2) ${dimension.spacing.separate};
 
+  display: flex;
+  flex-direction: column;
+
   max-width: ${dimension.appWidth};
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
 `
 
 const GlobalStyle = createGlobalStyle`
@@ -49,6 +52,10 @@ const GlobalStyle = createGlobalStyle`
   form > *:last-child, main > *:last-child, nav > *:last-child {
     margin-bottom: 0;
   }
+
+  p {
+    font-size: ${text.body.primary.size};
+  }
 `
 
 const Root = () => (
@@ -65,6 +72,8 @@ const Root = () => (
           <Route exact path='/create' render={() => <h1>Create Party</h1>} />
           <Route exact path='/help' render={() => <h1>How to Use</h1>} />
           <Route exact path='/pro' render={() => <h1>Get Pro</h1>} />
+          <Route exact path='/terms' render={() => <h1>Terms of Use</h1>} />
+          <Route exact path='/privacy' render={() => <h1>Privacy Policy</h1>} />
           <Route component={NotFound} />
         </Switch>
       </AppContainer>
