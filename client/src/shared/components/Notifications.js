@@ -75,11 +75,14 @@ class Notifications extends Component {
 
     this.state = {
       isNotificationVisible: false,
-      isTicking: false,
       notifications: []
     }
   }
   tick () {
+    if (this.state.notifications.length === 0) {
+      return
+    }
+
     this.setState({
       isNotificationVisible: true
     })
@@ -91,17 +94,9 @@ class Notifications extends Component {
     }, 1500)
 
     setTimeout(() => {
-      this.setState(previousState => ({
-        notifications: previousState.notifications.slice(1)
+      this.setState(prevState => ({
+        notifications: prevState.notifications.slice(1)
       }))
-
-      if (this.state.notifications.length === 0) {
-        this.setState({
-          isTicking: false
-        })
-
-        return
-      }
 
       this.tick()
     }, 2000)
@@ -117,25 +112,13 @@ class Notifications extends Component {
         }))
       }
 
-      if (!this.state.isTicking) {
-        this.setState({
-          isTicking: true
-        })
-
+      if (this.state.notifications.length === 1) {
         this.tick()
       }
     })
   }
   render () {
-    const currentNotification = this.state.notifications[0]
-
-    if (!currentNotification) {
-      return (
-        <>
-          <Notification isVisible={this.state.isNotificationVisible} />
-        </>
-      )
-    }
+    const currentNotification = this.state.notifications[0] || {}
 
     return (
       <>
