@@ -7,11 +7,10 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch server",
+            "name": "Launch api server",
             "runtimeExecutable": "${workspaceFolder}/server/node_modules/.bin/nodemon",
             "program": "${workspaceFolder}/server/server.js",
             "restart": true,
-            "console": "integratedTerminal",
             "args": [
                 "--watch",
                 "./server"
@@ -19,11 +18,32 @@
             "internalConsoleOptions": "neverOpen"
         },
         {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch client webpack-dev-server",
+            "program": "${workspaceRoot}/client/node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+            "cwd": "${workspaceFolder}/client",
+            "args": [
+                "--mode",
+                "development"
+            ]
+        },
+        {
             "type": "chrome",
             "request": "launch",
-            "name": "Open client",
+            "name": "Open client in Chrome",
             "url": "http://localhost:5000",
             "webRoot": "${workspaceFolder}/client"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Start",
+            "configurations": [
+                "Launch api server",
+                "Launch client webpack-dev-server",
+                "Open client in Chrome"
+            ]
         }
     ]
 }
