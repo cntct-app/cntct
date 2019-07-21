@@ -9,8 +9,8 @@ import { parseIncompletePhoneNumber, formatIncompletePhoneNumber } from 'libphon
 import Field from './Field'
 import Input from './Input'
 import Glyph from './Glyph'
-import Button from './Button'
-import { color, dimension, generateActiveColor, generateGradient } from '../theme'
+import SubmitButton from './SubmitButton'
+import { color, dimension } from '../theme'
 
 const NameContainer = styled.div`
   display: flex;
@@ -32,23 +32,6 @@ const Info = styled.div`
   > img {
     margin-right: ${dimension.spacing.connected};
     fill: ${color.content.important}
-  }
-`
-
-const SubmitButton = styled(Button)`
-  /* Remove default background and include fallback for browsers that don't support gradients */
-  background-color: ${color.brand}; 
-  background-image: ${generateGradient(color.brand)};
-
-  margin-left: auto;
-
-  /* Reset width to match text size instead of viewport width */
-  width: inherit;
-
-  &:hover,
-  &:active {
-    background-color: ${generateActiveColor(color.brand)}; 
-    background-image: ${generateGradient(color.brand, true)};
   }
 `
 

@@ -35,7 +35,7 @@ const Button = styled.button.attrs(() => ({
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   ${props => props.disabled && css`
-    opacity: 0.65;
+    opacity: 0.5;
     cursor: not-allowed;
   `}
   
@@ -54,13 +54,13 @@ const Button = styled.button.attrs(() => ({
     margin-left: ${dimension.spacing.related};
   }
 
-  &:hover,
-  &:active {
+  &:enabled:hover,
+  &:enabled:active {
     background-color: ${generateActiveColor(color.button.background)};
     background-image: ${generateGradient(color.button.background, true)};
   }
 
-  &:active, 
+  &:enabled:active, 
   &:focus {
     box-shadow: ${generateHighlightBoxShadow(highlight.button)}, 0 0 0 3px ${color.focusBorder};
     outline: none;
