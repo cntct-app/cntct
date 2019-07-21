@@ -14,6 +14,7 @@ import Logo from '../shared/components/Logo'
 import crunchLogo from '../shared/resources/crunch.svg'
 import { partyCode } from '../shared/mixins'
 import { dimension, color } from '../shared/theme'
+import notificationHelper from '../shared/notificationHelper'
 
 const MainContainer = styled.main`
   display: flex;
@@ -104,7 +105,7 @@ class Landing extends Component {
               hasError: true
             })
 
-            window.notificationHelper.add({
+            notificationHelper.add({
               type: 'error',
               content: 'Party not found'
             })

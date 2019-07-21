@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { dimension, color, effect, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
+import NotificationHelper from '../notificationHelper'
 
 import Glyph from './Glyph'
 
@@ -102,7 +103,7 @@ class Notifications extends Component {
     }, 2000)
   }
   componentDidMount () {
-    window.notificationHelper.subscribe(notification => {
+    NotificationHelper.subscribe(notification => {
       if (this.state.notifications.length === 0 || notification.content !== this.state.currentNotification.content) {
         this.setState(previousState => ({
           notifications: [
