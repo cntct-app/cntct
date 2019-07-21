@@ -31,11 +31,11 @@ const Party = ({ match }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resp = await fetch(`/api/party/${partyCode}`)
-        const { party } = await resp.json()
+        const resp = await fetch(`/api/party/${partyCode}/name`)
+        const { name } = await resp.json()
 
-        if (party) {
-          setPartyName(party.name)
+        if (name) {
+          setPartyName(name)
         } else {
           setPartyName(partyError)
         }

@@ -59,8 +59,26 @@ app.post('/create_party', async (req, res) => {
   }
 })
 
-// Get a party
-app.get('/party/:code', async (req, res) => {
+// Check if a party exists
+app.get('/party/:code/exists', async (req, res) => {
+  try {
+    const party = await Party.findOne({
+      code: req.params.code
+    })
+
+    if (!party) {
+      return res.status(404).json({ exists: false })
+    }
+
+    res.json({ exists: true })
+  } catch (err) {
+    console.error(`Error fetching party: ${err}`)
+    res.status(500).json({ error: 'Failed to fetch party' })
+  }
+})
+
+// Get a party name
+app.get('/party/:code/name', async (req, res) => {
   try {
     const party = await Party.findOne({
       code: req.params.code
@@ -70,7 +88,7 @@ app.get('/party/:code', async (req, res) => {
       return res.status(404).json({ error: 'Party does not exist' })
     }
 
-    res.json({ party })
+    res.json({ name: party.name })
   } catch (err) {
     console.error(`Error fetching party: ${err}`)
     res.status(500).json({ error: 'Failed to fetch party' })

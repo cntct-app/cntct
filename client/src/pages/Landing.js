@@ -97,10 +97,10 @@ class Landing extends Component {
 
       if (partyCode.length === 5) {
         try {
-          const resp = await fetch(`/api/party/${partyCode}`)
-          const { party } = await resp.json()
+          const resp = await fetch(`/api/party/${partyCode}/exists`)
+          const { exists } = await resp.json()
 
-          if (!party) {
+          if (!exists) {
             this.setState({
               hasError: true
             })
