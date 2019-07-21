@@ -4,7 +4,6 @@ import Button from './Button'
 import { color, generateActiveColor, generateGradient, generateHighlightBoxShadow, highlight } from '../theme'
 
 const SubmitButton = styled(Button)`
-  /* Remove default background and include fallback for browsers that don't support gradients */
   background-color: ${color.brand}; 
   background-image: ${generateGradient(color.brand)};
   box-shadow: ${generateHighlightBoxShadow(highlight.brand)};

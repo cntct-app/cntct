@@ -6,7 +6,7 @@ const Header = styled.header`
   display: flex;
 
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   
   margin-bottom: ${dimension.spacing.separate};
   

@@ -7,6 +7,7 @@ import { hot } from 'react-hot-loader/root'
 import Notifications from './shared/components/Notifications'
 import Landing from './pages/Landing'
 import Party from './pages/Party'
+import CreateParty from './pages/CreateParty'
 import NotFound from './pages/NotFound'
 import { dimension, color, text } from './shared/theme'
 
@@ -66,8 +67,8 @@ const Root = () => (
 
         <Switch>
           <Route exact path='/' component={Landing} />
-          <Route path='/party/:partyCode' render={Party} />
-          <Route exact path='/create' render={() => <h1>Create Party</h1>} />
+          <Route path='/party/:partyCode' component={Party} />
+          <Route exact path='/create' component={CreateParty} />
           <Route exact path='/help' render={() => <h1>How to Use</h1>} />
           <Route exact path='/pro' render={() => <h1>Get Pro</h1>} />
           <Route exact path='/terms' render={() => <h1>Terms of Use</h1>} />

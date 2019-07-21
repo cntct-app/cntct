@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { dimension, color, effect, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
-import NotificationHelper from '../notificationHelper'
+import notificationHelper from '../notificationHelper'
 
 import Glyph from './Glyph'
 
@@ -23,7 +23,7 @@ const NotificationContainer = styled.div`
   transform: translateY(-62px);
 
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   font-weight: ${text.title.secondary.weight};
 
@@ -41,12 +41,7 @@ const NotificationContainer = styled.div`
   > ${Glyph} {
     margin-right: ${dimension.spacing.connected};
     filter: invert(100%);
-  }
-
-  > p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    margin-top: 2px;
   }
 
   ${({ isVisible }) => isVisible && css`
@@ -57,7 +52,7 @@ const NotificationContainer = styled.div`
 
 const Notification = ({ content, isVisible, type }) => (
   <NotificationContainer isVisible={isVisible} type={type}>
-    {type && <Glyph name={type} secondary />}
+    { type && <Glyph name={type} secondary /> }
     <p>{ content }</p>
   </NotificationContainer>
 )
@@ -73,9 +68,11 @@ class Notifications extends Component {
     super(props)
 
     this.tick = this.tick.bind(this)
+    this.handleNewNotification = this.handleNewNotification.bind(this)
 
     this.state = {
       isNotificationVisible: false,
+      currentNotification: {},
       notifications: []
     }
   }
@@ -103,29 +100,25 @@ class Notifications extends Component {
     }, 2000)
   }
   componentDidMount () {
-    NotificationHelper.subscribe(notification => {
-      if (this.state.notifications.length === 0 || notification.content !== this.state.currentNotification.content) {
-        this.setState(previousState => ({
-          notifications: [
-            ...previousState.notifications,
-            notification
-          ]
-        }))
-      }
-
-      if (this.state.notifications.length === 1) {
-        this.tick()
-      }
-    })
+    notificationHelper.subscribe(this.handleNewNotification)
+  }
+  handleNewNotification (notification) {
+    if (this.state.notifications.length === 0 || notification.content !== this.state.currentNotification.content) {
+      this.setState(previousState => ({
+        currentNotification: notification,
+        notifications: [
+          ...previousState.notifications,
+          notification
+        ]
+      }), newState => {
+        if (this.state.notifications.length === 1) {
+          this.tick()
+        }
+      })
+    }
   }
   render () {
-    const currentNotification = this.state.notifications[0] || {}
-
-    return (
-      <>
-        <Notification isVisible={this.state.isNotificationVisible} type={currentNotification.type} content={currentNotification.content} />
-      </>
-    )
+    return <Notification isVisible={this.state.isNotificationVisible} type={this.state.currentNotification.type} content={this.state.currentNotification.content} />
   }
 }
 

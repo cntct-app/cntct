@@ -44,15 +44,15 @@ app.use(morgan('dev'))
 // Create a party
 app.post('/create_party', async (req, res) => {
   try {
-    const { name } = req.body
+    const { partyName } = req.body
     const code = await generatePartyCode()
 
     await Party.create({
-      name,
-      code
+      code,
+      name: partyName
     })
 
-    res.json({ message: `Successfully created '${name}' party` })
+    res.json({ code })
   } catch (err) {
     console.error(`Error creating party: ${err}`)
     res.status(500).json({ error: 'Failed to create party' })
