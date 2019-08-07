@@ -21,17 +21,19 @@ const Input = styled.input.attrs(({ placeholder }) => ({
   width: 100%;
   height: 100%;
 
+  font-family: ${text.font};
   font-size: ${text.body.primary.size};
+  font-weight: ${text.body.primary.weight};
 
+  &::placeholder {
+    color: ${color.content.primary};
+    opacity: .35;
+  }
+
+  /* Fix Safari autofill icon color */
   &:not(:-webkit-autofill)::-webkit-contacts-auto-fill-button {
     background-color: #fff;
   }
-
-  &::placeholder {
-    opacity: 0.5;
-    color: ${color.content.primary};
-  }
-
   &:focus {
     outline: none;
   }

@@ -2,25 +2,20 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 
-import Header from '../shared/components/Header'
+import Button from '../shared/components/Button'
 import Field from '../shared/components/Field'
+import Form from '../shared/components/Form'
+import Header from '../shared/components/Header'
 import Input from '../shared/components/Input'
-import SubmitButton from '../shared/components/SubmitButton'
-import Glyph from '../shared/components/Glyph'
+import { Title } from '../shared/components/Label'
+
 import notificationHelper from '../shared/notificationHelper'
 
 class CreateParty extends Component {
-  constructor (props) {
-    super(props)
-
-    this.onInputChange = this.onInputChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-
-    this.state = {
-      partyName: ''
-    }
+  state = {
+    name: ''
   }
-  onInputChange (e) {
+  onInputChange = e => {
     const value = e.target.value
 
     if (value.length < 1) {
@@ -31,7 +26,7 @@ class CreateParty extends Component {
       if (value.length > 30) {
         if (this.state.isValid) {
           notificationHelper.add({
-            content: 'Party name cannot be more than 30 characters'
+            content: 'Name cannot be more than 30 characters'
           })
         }
 
@@ -46,13 +41,13 @@ class CreateParty extends Component {
     }
 
     this.setState({
-      partyName: value
+      name: value
     })
   }
-  async onSubmit (e) {
+  onSubmit = async e => {
     e.preventDefault()
 
-    const { partyName } = this.state
+    const { name } = this.state
 
     try {
       const resp = await fetch('/api/create_party', {
@@ -61,7 +56,7 @@ class CreateParty extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ partyName })
+        body: JSON.stringify({ name })
       })
       const { code } = await resp.json()
 
@@ -75,29 +70,26 @@ class CreateParty extends Component {
       })
     }
   }
-  render () {
-    return (
-      <div>
-        <Header>
-          <h1>Create Party</h1>
-        </Header>
-        <form onSubmit={this.onSubmit}>
-          <Field>
-            <Input placeholder='Party Name' name='partyName' onChange={this.onInputChange} value={this.state.partyName} />
-          </Field>
-          <SubmitButton disabled={!this.state.isValid}>
-            <span>Continue</span>
-            <Glyph name='arrow' />
-          </SubmitButton>
-        </form>
-      </div>
-    )
-  }
+  render = () => (
+    <>
+      <Header>
+        <Title>Create Party</Title>
+      </Header>
+
+      <Form onSubmit={this.onSubmit}>
+        <Field>
+          <Input placeholder='Party Name' name='name' onChange={this.onInputChange} value={this.state.name} />
+        </Field>
+
+        <Button primary disabled={!this.state.isValid}>Continue</Button>
+      </Form>
+    </>
+  )
 }
 
 CreateParty.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired
+    push: PropTypes.func
   }).isRequired
 }
 

@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 
 module.exports = {
-  entry: ['whatwg-fetch', './src/index.js'],
+  entry: ['./src/index.js'],
   devtool: 'cheap-module-source-map',
   devServer: {
     port: process.env.PORT,
@@ -30,11 +30,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['react-hot-loader/babel']
-          }
+          loader: 'babel-loader'
         }
       },
       {
@@ -50,8 +46,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      base: '/'
+      template: './src/index.html'
     }),
     new ErrorOverlayPlugin(),
     new webpack.HotModuleReplacementPlugin()

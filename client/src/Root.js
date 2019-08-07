@@ -1,26 +1,28 @@
+import { hot } from 'react-hot-loader/root' // Must be required first to work
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { Normalize } from 'styled-normalize'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { hot } from 'react-hot-loader/root'
 
-import Notifications from './shared/components/Notifications'
-import Landing from './pages/Landing'
-import Party from './pages/Party'
 import CreateParty from './pages/CreateParty'
-import NotFound from './pages/NotFound'
-import { dimension, color, text } from './shared/theme'
+import Landing from './pages/Landing'
+import MemberForm from './pages/MemberForm'
+import MemberList from './pages/MemberList'
+import Error from './pages/Error'
 
-const AppContainer = styled.div`
+import Container from './shared/components/Container'
+import Notifications from './shared/components/Notifications'
+import PartyExistsRoute from './shared/components/PartyExistsRoute'
+import { Title } from './shared/components/Label'
+
+import { dimension, color } from './shared/theme'
+
+const AppContainer = styled(Container)`
+  max-width: ${dimension.appWidth};
+  min-height: 100%;
+
   margin: 0 auto;
   padding: calc(${dimension.spacing.separate} * 2) ${dimension.spacing.separate};
-
-  display: flex;
-  flex-direction: column;
-
-  max-width: ${dimension.appWidth};
-  width: 100%;
-  min-height: 100vh;
 `
 
 const GlobalStyle = createGlobalStyle`
@@ -35,45 +37,38 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    color: ${color.content.primary};
-    font-family: ${text.body.font};
-    font-size: ${text.body.primary.size};
-    font-weight: ${text.body.primary.weight};
-  }
-
-  body,
-  h1, 
-  h2,
-  p {
     margin: 0;
   }
-
-  form > *, main > *, nav > * {
-    margin-bottom: ${dimension.spacing.related};
-  }
-
-  form > *:last-child, main > *:last-child, nav > *:last-child {
-    margin-bottom: 0;
+  
+  html,
+  body,
+  #root {
+    height: 100%;
   }
 `
 
 const Root = () => (
   <>
     <Notifications />
+
     <Router>
-      <AppContainer>
+      <AppContainer spacing={dimension.spacing.separate}>
         <Normalize />
         <GlobalStyle />
 
+        {/* Matches in order (last route is always 404) */}
         <Switch>
           <Route exact path='/' component={Landing} />
-          <Route path='/party/:partyCode' component={Party} />
           <Route exact path='/create' component={CreateParty} />
-          <Route exact path='/help' render={() => <h1>How to Use</h1>} />
-          <Route exact path='/pro' render={() => <h1>Get Pro</h1>} />
-          <Route exact path='/terms' render={() => <h1>Terms of Use</h1>} />
-          <Route exact path='/privacy' render={() => <h1>Privacy Policy</h1>} />
-          <Route component={NotFound} />
+          <Route exact path='/help' render={() => <Title>How to Use</Title>} />
+          <Route exact path='/privacy' render={() => <Title>Privacy Policy</Title>} />
+          <Route exact path='/pro' render={() => <Title>Get Pro</Title>} />
+          <Route exact path='/terms' render={() => <Title>Terms of Use</Title>} />
+
+          {/* Wraps component in <PartyExists> */}
+          <PartyExistsRoute exact path='/party/:partyCode' component={MemberForm} />
+          <PartyExistsRoute exact path='/party/:partyCode/members' component={MemberList} />
+          <Route render={() => <Error message='This page does not exist' thonk />} />
         </Switch>
       </AppContainer>
     </Router>

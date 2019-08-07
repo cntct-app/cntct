@@ -1,0 +1,10 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "corejs": 3,
+      "useBuiltIns": "entry"
+    }],
+    "@babel/preset-react"
+  ],
+  "plugins": ["babel-plugin-styled-components", "react-hot-loader/babel", "@babel/plugin-proposal-class-properties"]
+}

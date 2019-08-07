@@ -9,49 +9,33 @@ import infoGlyph from '../resources/glyphs/info.svg'
 import importantGlyph from '../resources/glyphs/important.svg'
 import errorGlyph from '../resources/glyphs/error.svg'
 import proGlyph from '../resources/glyphs/pro.svg'
+
 import { dimension } from '../theme'
 
-const Glyph = styled.img.attrs(({ name }) => {
-  let source
+const glyphNameToImageSource = {
+  add: addGlyph,
+  arrow: arrowGlyph,
+  attention: attentionGlyph,
+  code: codeGlyph,
+  info: infoGlyph,
+  important: importantGlyph,
+  error: errorGlyph,
+  pro: proGlyph
+}
 
-  switch (name) {
-    case 'add':
-      source = addGlyph
-      break
-    case 'arrow':
-      source = arrowGlyph
-      break
-    case 'attention':
-      source = attentionGlyph
-      break
-    case 'code':
-      source = codeGlyph
-      break
-    case 'info':
-      source = infoGlyph
-      break
-    case 'important':
-      source = importantGlyph
-      break
-    case 'error':
-      source = errorGlyph
-      break
-    case 'pro':
-      source = proGlyph
-  }
-
-  return {
-    src: source,
-    alt: `${name} icon`
-  }
+const Glyph = styled.img.attrs(({ glyph }) => {
+  return ({
+    src: glyphNameToImageSource[glyph],
+    alt: `${glyph} icon`
+  })
 })`
   flex-shrink: 0;
   
   pointer-events: none;
   user-select: none;
 
-  width: ${({ large }) => large ? dimension.glyph.large.height : dimension.glyph.height};
-  height: ${({ large }) => large ? dimension.glyph.large.height : dimension.glyph.height};
+  width: ${({ large }) => large ? dimension.large.glyph.size : dimension.glyph.size};
+  height: ${({ large }) => large ? dimension.large.glyph.size : dimension.glyph.size};
 
   ${({ secondary }) => secondary && css`
     opacity: .25;
@@ -59,7 +43,7 @@ const Glyph = styled.img.attrs(({ name }) => {
 `
 
 Glyph.propTypes = {
-  name: PropTypes.string.isRequired,
+  glyph: PropTypes.string.isRequired,
   large: PropTypes.bool
 }
 

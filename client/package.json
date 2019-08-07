@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "private": true,
-  "scripts": {
-    "start": "webpack-dev-server --mode=development"
-  },
   "author": "",
   "license": "UNLICENSED",
+  "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead",
+  "scripts": {
+    "start": "webpack-dev-server --mode=development",
+    "build": "webpack --mode=production"
+  },
   "dependencies": {
     "@hot-loader/react-dom": "^16.8.6",
+    "core-js": "^3.1.4",
     "libphonenumber-js": "^1.7.19",
     "polished": "^3.4.0",
     "prop-types": "^15.7.2",
@@ -25,9 +28,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
+    "babel-plugin-styled-components": "^1.10.6",
     "error-overlay-webpack-plugin": "^0.3.0",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",

@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import { dimension, color, effect, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
 import notificationHelper from '../notificationHelper'
 
+import Label from './Label'
 import Glyph from './Glyph'
 
 const NotificationContainer = styled.div`
@@ -52,8 +53,8 @@ const NotificationContainer = styled.div`
 
 const Notification = ({ content, isVisible, type }) => (
   <NotificationContainer isVisible={isVisible} type={type}>
-    { type && <Glyph name={type} secondary /> }
-    <p>{ content }</p>
+    { type && <Glyph glyph={type} secondary /> }
+    <Label>{ content }</Label>
   </NotificationContainer>
 )
 

@@ -16,7 +16,8 @@ const Field = styled.div`
 
   align-items: center;
   
-  height: ${({ large }) => large ? dimension.large.control : dimension.control};
+  height: ${({ large }) => large ? dimension.large.control.size : dimension.control.size};
+  width: 100%;
 
   > ${Glyph} {    
     margin-right: ${dimension.spacing.related};

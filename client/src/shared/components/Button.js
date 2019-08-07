@@ -1,10 +1,18 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
+import { withRouter } from 'react-router-dom'
 
 import Glyph from './Glyph'
-import { color, dimension, generateActiveColor, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
+import { Title } from './Label'
+
+import { childrenType } from '../types'
+import { ButtonState } from '../enums'
 import { controlTransitions } from '../mixins'
 
-const Button = styled.button.attrs(() => ({
+import { color, dimension, generateColorVariant, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
+
+export const ButtonContainer = styled.button.attrs(() => ({
   onTouchStart: e => e.preventDefault()
 }))`
   ${controlTransitions}
@@ -16,6 +24,9 @@ const Button = styled.button.attrs(() => ({
   border-radius: ${dimension.border.radius};
   box-shadow: ${generateHighlightBoxShadow(highlight.button)};
   color: ${color.content.primary};
+  font-size: ${text.title.secondary.size};
+  font-weight: ${text.title.secondary.weight};
+  text-decoration: none;
 
   display: flex;
   outline: none;
@@ -23,41 +34,60 @@ const Button = styled.button.attrs(() => ({
 
   align-items: center;
   
-  padding: 0 ${dimension.spacing.related};
+  padding: ${({ noLabel }) => noLabel ? dimension.spacing.related : '0'} ${dimension.spacing.related};
 
-  width: 100%;
-  height: ${dimension.control};
-
-  font-size: ${text.title.secondary.size};
-  font-weight: ${text.title.secondary.weight};
-  text-decoration: none;
+  min-width: ${dimension.control.size};
+  height: ${({ noLabel }) => noLabel ? 'auto' : dimension.control.size};
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  ${props => props.disabled && css`
-    opacity: 0.5;
-    cursor: not-allowed;
-  `}
-  
+  > *:not(:last-child) {
+    margin-right: ${dimension.spacing.related};
+  }
+
   > span {
     text-align: left;
 
     flex-grow: 1;
   }
 
-  /* Add spacing around glyphs inside buttons */
-  > ${Glyph}:first-child {
-    margin-right: ${dimension.spacing.related};
+  > ${Glyph}:only-child {
+    margin: 0 auto;
   }
 
-  > ${Glyph}:last-child {
-    margin-left: ${dimension.spacing.related};
+  ${({ disabled }) => disabled && css`
+    opacity: 0.5;
+    cursor: not-allowed;
+  `}
+
+  ${({ primary }) => primary && css`
+    background-color: ${color.brand};
+    background-image: ${generateGradient(color.brand)};
+    box-shadow: ${generateHighlightBoxShadow(highlight.brand)};
+
+    &&:enabled:hover {
+      background-color: ${generateColorVariant(color.brand, ButtonState.HOVER)}; 
+      background-image: ${generateGradient(color.brand, ButtonState.HOVER)};
+    }
+
+    &&:enabled:active {
+      background-color: ${generateColorVariant(color.brand, ButtonState.ACTIVE)}; 
+      background-image: ${generateGradient(color.brand, ButtonState.ACTIVE)};
+    }
+  `}
+
+  ${({ stretch }) => stretch && css`
+    width: 100%;
+  `}
+
+  &:enabled:hover {
+    background-color: ${generateColorVariant(color.button.background, ButtonState.HOVER)};
+    background-image: ${generateGradient(color.button.background, ButtonState.HOVER)};
   }
 
-  &:enabled:hover,
   &:enabled:active {
-    background-color: ${generateActiveColor(color.button.background)};
-    background-image: ${generateGradient(color.button.background, true)};
+    background-color: ${generateColorVariant(color.button.background, ButtonState.ACTIVE)};
+    background-image: ${generateGradient(color.button.background, ButtonState.ACTIVE)};
   }
 
   &:enabled:active, 
@@ -67,4 +97,48 @@ const Button = styled.button.attrs(() => ({
   }
 `
 
+const Button = props => {
+  const { labelGlyph, noLabel, actionGlyph = 'arrow' } = props
+  const { children, ...rest } = props
+
+  let content = children
+
+  if (!noLabel && children) {
+    content = <Title as='span' secondary>{ children }</Title>
+  }
+
+  return (
+    <ButtonContainer {...rest}>
+      { labelGlyph && <Glyph glyph={labelGlyph} /> }
+      { content }
+      <Glyph glyph={actionGlyph} />
+    </ButtonContainer>
+  )
+}
+
+Button.propTypes = {
+  labelGlyph: PropTypes.string,
+  actionGlyph: PropTypes.string,
+  primary: PropTypes.bool,
+  noLabel: PropTypes.bool,
+  stretch: PropTypes.bool,
+  children: childrenType,
+  onClick: PropTypes.func
+}
+
+const _LinkButton = ({ to, history, children, ...rest }) => (
+  <Button onClick={() => history.push(to)} {...rest}>
+    { children }
+  </Button>
+)
+
+_LinkButton.propTypes = {
+  to: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }).isRequired,
+  children: childrenType
+}
+
+export const LinkButton = withRouter(_LinkButton)
 export default Button

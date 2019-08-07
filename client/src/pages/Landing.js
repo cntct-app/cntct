@@ -1,39 +1,35 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { opacify } from 'polished'
 import isInt from 'validator/lib/isInt'
 
-import ButtonLink from '../shared/components/ButtonLink'
+import Label from '../shared/components/Label'
+import Container from '../shared/components/Container'
 import Header from '../shared/components/Header'
 import Field from '../shared/components/Field'
 import Glyph from '../shared/components/Glyph'
 import Input from '../shared/components/Input'
+import { LinkButton } from '../shared/components/Button'
+import Link from '../shared/components/Link'
 import Logo from '../shared/components/Logo'
-import crunchLogo from '../shared/resources/crunch.svg'
-import { partyCode } from '../shared/mixins'
-import { dimension, color } from '../shared/theme'
+
 import notificationHelper from '../shared/notificationHelper'
+import { partyCodeStyle } from '../shared/mixins'
+import { dimension, color } from '../shared/theme'
 
-const MainContainer = styled.main`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  margin-bottom: ${dimension.spacing.separate};
-
-  > p {
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: auto;
-  }
-`
+import crunchLogo from '../shared/resources/crunch.svg'
 
 const PartyCodeInput = styled(Input).attrs(() => ({
   placeholder: '00000',
   pattern: '[0-9]*' // For iOS keyboard, not validation
 }))`
   /* Include font styles for displaying party codes */
-  ${partyCode}
+  &,
+  &::placeholder {
+    ${partyCodeStyle}
+  }
 
   /* Remove up/down buttons from number input */
   appearance: textfield;
@@ -49,7 +45,11 @@ const PartyCodeInput = styled(Input).attrs(() => ({
 `
 
 const PartyCodeField = styled(Field)`
+  flex-shrink: 0;
+
   padding: 0 ${({ large }) => large ? dimension.large.spacing.related : dimension.spacing.related};
+  
+  height: ${dimension.large.control.size};
 
   /* & increases specificity */
   && {
@@ -59,33 +59,23 @@ const PartyCodeField = styled(Field)`
   }
 `
 
-const Footer = styled.footer`
-  display: flex;
-  align-items: center;
+const Footer = styled(Container).attrs(() => ({
+  as: 'footer'
+}))`
+  margin-top: auto;
 
-  > img {
+/* Crunch logo */
+  > ${Container} > img {
     margin-right: auto;
-  }
-
-  > a {
-    color: rgba(255, 255, 255, 0.75);
-    text-decoration: underline;
-    margin-left: ${dimension.spacing.related};
   }
 `
 
 class Landing extends Component {
-  constructor (props) {
-    super(props)
-
-    this.onPartyCodeChange = this.onPartyCodeChange.bind(this)
-
-    this.state = {
-      partyCode: '',
-      hasError: false
-    }
+  state = {
+    partyCode: '',
+    hasError: false
   }
-  async onPartyCodeChange (e) {
+  onPartyCodeChange = async e => {
     const partyCode = e.target.value
     const isPartyCode = isInt(partyCode) || partyCode.length === 0
 
@@ -97,10 +87,10 @@ class Landing extends Component {
 
       if (partyCode.length === 5) {
         try {
-          const resp = await fetch(`/api/party/${partyCode}/exists`)
-          const { exists } = await resp.json()
+          const resp = await fetch(`/api/party/${partyCode}/`)
+          const { party } = await resp.json()
 
-          if (!exists) {
+          if (!party) {
             this.setState({
               hasError: true
             })
@@ -113,61 +103,48 @@ class Landing extends Component {
             return
           }
 
-          this.props.history.push(`/party/${partyCode}`)
+          this.props.history.push(`/party/${party.code}`)
         } catch (err) {
           console.error(`Error checking if party exists: ${err}`)
         }
       }
     }
   }
-  render () {
-    return (
-      <>
-        <Header>
-          <Logo />
-        </Header>
+  render = () => (
+    <>
+      <Header>
+        <Logo />
+      </Header>
 
-        <MainContainer>
-          <PartyCodeField large hasError={this.state.hasError}>
-            <Glyph name='code' large />
-            <PartyCodeInput onChange={this.onPartyCodeChange} value={this.state.partyCode} />
-          </PartyCodeField>
+      <Container as='main'>
+        <PartyCodeField large hasError={this.state.hasError}>
+          <Glyph glyph='code' large />
+          <PartyCodeInput onChange={this.onPartyCodeChange} value={this.state.partyCode} />
+        </PartyCodeField>
 
-          <nav>
-            <ButtonLink to='/create'>
-              <Glyph name='add' />
-              <span>Create Party</span>
-              <Glyph name='arrow' />
-            </ButtonLink>
+        <Container as='nav'>
+          <LinkButton to='/create' labelGlyph='add' stretch>Create Party</LinkButton>
+          <LinkButton to='/pro' labelGlyph='pro' stretch>Get Pro</LinkButton>
+          <LinkButton to='/about' labelGlyph='info' stretch>Learn More</LinkButton>
+        </Container>
+      </Container>
 
-            <ButtonLink to='/pro' glyph='pro'>
-              <Glyph name='pro' />
-              <span>Get Pro</span>
-              <Glyph name='arrow' />
-            </ButtonLink>
+      <Footer>
+        <Label secondaryColor>If you’re trying to join others, ask for a party code.</Label>
 
-            <ButtonLink to='/about' glyph='info'>
-              <Glyph name='info' />
-              <span>Learn More</span>
-              <Glyph name='arrow' />
-            </ButtonLink>
-          </nav>
-          <p>If you’re trying to join others, ask for a party code.</p>
-        </MainContainer>
-
-        <Footer>
-          <img src={crunchLogo} />
+        <Container row center>
+          <img src={crunchLogo} alt='crunch software logo' />
           <Link to='/terms'>Terms</Link>
           <Link to='/privacy'>Privacy</Link>
-        </Footer>
-      </>
-    )
-  }
+        </Container>
+      </Footer>
+    </>
+  )
 }
 
 Landing.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired
+    push: PropTypes.func
   }).isRequired
 }
 

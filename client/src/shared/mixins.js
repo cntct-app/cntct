@@ -11,7 +11,7 @@ const controlTransitions = css`
   }
 `
 
-const partyCode = css`
+const partyCodeStyle = css`
   font-family: ${text.partyCode.font};
   font-size: ${text.partyCode.size};
   letter-spacing: ${text.partyCode.letterSpacing};
@@ -19,5 +19,5 @@ const partyCode = css`
 
 export {
   controlTransitions,
-  partyCode
+  partyCodeStyle
 }

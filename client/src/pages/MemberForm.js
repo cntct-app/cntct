@@ -2,55 +2,40 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
-import isMobilePhone from 'validator/lib/isMobilePhone'
 import isEmail from 'validator/lib/isEmail'
 import { parseIncompletePhoneNumber, formatIncompletePhoneNumber } from 'libphonenumber-js'
 
-import Field from './Field'
-import Input from './Input'
-import Glyph from './Glyph'
-import SubmitButton from './SubmitButton'
-import { color, dimension } from '../theme'
+import Button from '../shared/components/Button'
+import Container from '../shared/components/Container'
+import Field from '../shared/components/Field'
+import Form from '../shared/components/Form'
+import Glyph from '../shared/components/Glyph'
+import Input from '../shared/components/Input'
+import Link from '../shared/components/Link'
+import PartyHeader from '../shared/components/PartyHeader'
 
-const NameContainer = styled.div`
-  display: flex;
+import { validatePhoneNumber } from '../shared/util'
 
-  > *:first-child {
-    margin-right: ${dimension.spacing.related}
-  }
+import { dimension } from '../shared/theme'
 
-  > * {
+const NameContainer = styled(Container).attrs({
+  row: true
+})`
+  > ${Field} {
     flex-grow: 1;
-  }
-`
-
-const Info = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 24px;
-
-  > img {
-    margin-right: ${dimension.spacing.connected};
-    fill: ${color.content.important}
+    flex-shrink: initial;
   }
 `
 
 class MemberForm extends Component {
-  constructor (props) {
-    super(props)
-
-    this.onInputChange = this.onInputChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-
-    this.state = {
-      firstName: '',
-      lastName: '',
-      phone: '',
-      email: '',
-      isValid: false
-    }
+  state = {
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    isValid: false
   }
-  onInputChange (e) {
+  onInputChange = e => {
     const key = e.target.name
     let value = e.target.value
 
@@ -68,12 +53,12 @@ class MemberForm extends Component {
       [key]: value
     }, () => this.validate())
   }
-  validate () {
+  validate = () => {
     const { firstName, lastName, phone, email } = this.state
-    const isFirstNameValid = firstName.length > 0
-    const isLastNameValid = lastName.length > 0
+    const isFirstNameValid = firstName.length && firstName.length <= 35
+    const isLastNameValid = lastName.length && firstName.length <= 35
     const isPhoneBlank = phone.length === 0
-    const isPhoneValid = isMobilePhone(phone)
+    const isPhoneValid = validatePhoneNumber(phone)
     const isEmailBlank = email.length === 0
     const isEmailValid = isEmail(email)
     const isFormValid = isFirstNameValid && isLastNameValid && ((isPhoneValid && isEmailBlank) || (isEmailValid && isPhoneBlank) || (isEmailValid && isPhoneValid))
@@ -82,7 +67,7 @@ class MemberForm extends Component {
       isValid: isFormValid
     })
   }
-  async onSubmit (e) {
+  onSubmit = async e => {
     e.preventDefault()
 
     const { firstName, lastName, phone, email } = this.state
@@ -107,16 +92,19 @@ class MemberForm extends Component {
       return
     }
 
-    this.props.history.push(`${this.props.location.pathname}/list`)
+    this.props.history.push(`${this.props.location.pathname}/members`)
   }
-  render () {
-    return (
-      <>
-        <Info>
-          <Glyph name='important' />
-          <p>We only store your data temporarily</p>
-        </Info>
-        <form onSubmit={this.onSubmit}>
+  render = () => (
+    <>
+      <PartyHeader partyCode={this.props.match.params.partyCode} />
+
+      <Container spacing={dimension.spacing.separate}>
+        <Container row spacing={dimension.spacing.connected}>
+          <Glyph glyph='important' />
+          <Link to='/privacy' secondary>We only store your data temporarily</Link>
+        </Container>
+
+        <Form onSubmit={this.onSubmit}>
           <NameContainer>
             <Field>
               <Input placeholder='First Name' name='firstName' onChange={this.onInputChange} value={this.state.firstName} />
@@ -135,26 +123,22 @@ class MemberForm extends Component {
             <Input placeholder='Email Address' type='email' name='email' onChange={this.onInputChange} value={this.state.email} />
           </Field>
 
-          <SubmitButton disabled={!this.state.isValid}>
-            {/* span instead of p because block elements are not allowed in buttons */}
-            <span>Continue</span>
-            <Glyph name='arrow' />
-          </SubmitButton>
-        </form>
-      </>
-    )
-  }
+          <Button primary disabled={!this.state.isValid}>Continue</Button>
+        </Form>
+      </Container>
+    </>
+  )
 }
 
 MemberForm.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.object.isRequired
+    params: PropTypes.object
   }).isRequired,
   location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
+    pathname: PropTypes.string
   }).isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired
+    push: PropTypes.func
   }).isRequired
 }
 
