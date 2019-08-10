@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import isInt from 'validator/lib/isInt'
 
-import Label from './Label'
-import Error from '../../pages/Error'
+import Error from './Error'
+import Loading from '../shared/components/Loading'
 
-class PartyExists extends Component {
+class Party extends Component {
   state = {
-    name: '',
+    party: null,
     loading: true,
     error: false
   }
@@ -32,7 +32,7 @@ class PartyExists extends Component {
 
       if (party) {
         this.setState({
-          name: party.name,
+          party,
           loading: false
         })
       } else {
@@ -46,29 +46,26 @@ class PartyExists extends Component {
   }
   render = () => {
     if (this.state.loading) {
-      return <Label>Loading...</Label>
+      return <Loading message='Loading party...' />
     }
 
     if (this.state.error) {
       return <Error message='Invalid party code' />
     }
 
-    if (!this.state.name.length) {
-      return <Error message='This party does not exist, it may have been closed.' />
+    if (!this.state.party) {
+      return <Error message='Party does not exist, it may have been closed.' />
     }
 
-    return this.props.children
+    return this.props.render(this.state.party)
   }
 }
 
-PartyExists.propTypes = {
+Party.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object
   }),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired
+  render: PropTypes.func.isRequired
 }
 
-export default withRouter(PartyExists)
+export default withRouter(Party)

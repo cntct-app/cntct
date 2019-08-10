@@ -5,18 +5,18 @@ import { withRouter } from 'react-router-dom'
 import isEmail from 'validator/lib/isEmail'
 import { parseIncompletePhoneNumber, formatIncompletePhoneNumber } from 'libphonenumber-js'
 
-import Button from '../shared/components/Button'
-import Container from '../shared/components/Container'
-import Field from '../shared/components/Field'
-import Form from '../shared/components/Form'
-import Glyph from '../shared/components/Glyph'
-import Input from '../shared/components/Input'
-import Link from '../shared/components/Link'
-import PartyHeader from '../shared/components/PartyHeader'
+import Button from './Button'
+import Container from './Container'
+import Field from './Field'
+import Form from './Form'
+import Glyph from './Glyph'
+import Input from './Input'
+import Link from './Link'
+import PartyHeader from './PartyHeader'
 
-import { validatePhoneNumber } from '../shared/util'
+import { validatePhoneNumber } from '../util'
 
-import { dimension } from '../shared/theme'
+import { dimension } from '../theme'
 
 const NameContainer = styled(Container).attrs({
   row: true
@@ -71,10 +71,9 @@ class MemberForm extends Component {
     e.preventDefault()
 
     const { firstName, lastName, phone, email } = this.state
-    const { partyCode } = this.props.match.params
 
     try {
-      await fetch(`/api/party/${partyCode}/join`, {
+      await fetch(`/api/party/${this.props.party.code}/join`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -96,7 +95,7 @@ class MemberForm extends Component {
   }
   render = () => (
     <>
-      <PartyHeader partyCode={this.props.match.params.partyCode} />
+      <PartyHeader code={this.props.party.code} name={this.props.party.name} />
 
       <Container spacing={dimension.spacing.separate}>
         <Container row spacing={dimension.spacing.connected}>
@@ -131,8 +130,9 @@ class MemberForm extends Component {
 }
 
 MemberForm.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.object
+  party: PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
   }).isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string

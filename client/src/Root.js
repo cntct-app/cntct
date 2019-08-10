@@ -6,13 +6,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import CreateParty from './pages/CreateParty'
 import Landing from './pages/Landing'
-import MemberForm from './pages/MemberForm'
-import MemberList from './pages/MemberList'
+import MemberForm from './shared/components/MemberForm'
+import MemberList from './shared/components/MemberList'
 import Error from './pages/Error'
 
 import Container from './shared/components/Container'
 import Notifications from './shared/components/Notifications'
-import PartyExistsRoute from './shared/components/PartyExistsRoute'
+import PartyRoute from './shared/components/PartyRoute'
 import { Title } from './shared/components/Label'
 
 import { dimension, color } from './shared/theme'
@@ -65,9 +65,10 @@ const Root = () => (
           <Route exact path='/pro' render={() => <Title>Get Pro</Title>} />
           <Route exact path='/terms' render={() => <Title>Terms of Use</Title>} />
 
-          {/* Wraps component in <PartyExists> */}
-          <PartyExistsRoute exact path='/party/:partyCode' component={MemberForm} />
-          <PartyExistsRoute exact path='/party/:partyCode/members' component={MemberList} />
+          {/* Wraps component in <Party> */}
+          <PartyRoute exact path='/party/:partyCode' component={MemberForm} />
+          <PartyRoute exact path='/party/:partyCode/members' component={MemberList} />
+
           <Route render={() => <Error message='This page does not exist' thonk />} />
         </Switch>
       </AppContainer>
