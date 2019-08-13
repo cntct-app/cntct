@@ -4,10 +4,14 @@ import styled, { css } from 'styled-components'
 import { dimension, color, effect, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
 import notificationHelper from '../notificationHelper'
 
-import Label from './Label'
+import Container from './Container'
 import Glyph from './Glyph'
+import Label from './Label'
 
-const NotificationContainer = styled.div`
+const NotificationContainer = styled(Container).attrs(() => ({
+  row: true,
+  spacing: dimension.spacing.connected
+}))`
   ${({ type }) => type === 'error' ? css`
     background-color: ${color.error};
     background-image: ${generateGradient(color.error)};
@@ -23,9 +27,6 @@ const NotificationContainer = styled.div`
   transition: transform 0.5s ease, opacity 0.5s linear;
   transform: translateY(-62px);
 
-  display: flex;
-  align-items: flex-start;
-
   font-weight: ${text.title.secondary.weight};
 
   position: absolute;
@@ -40,9 +41,12 @@ const NotificationContainer = styled.div`
   max-width: calc(${dimension.appWidth} - (${dimension.spacing.separate} * 2));
 
   > ${Glyph} {
-    margin-right: ${dimension.spacing.connected};
-    filter: invert(100%);
     margin-top: 2px;
+  }
+
+  > ${Label} {
+    flex-grow: 1;
+    flex-shrink: unset;
   }
 
   ${({ isVisible }) => isVisible && css`
@@ -53,7 +57,7 @@ const NotificationContainer = styled.div`
 
 const Notification = ({ content, isVisible, type }) => (
   <NotificationContainer isVisible={isVisible} type={type}>
-    { type && <Glyph glyph={type} secondary /> }
+    { type && <Glyph glyph={type} /> }
     <Label>{ content }</Label>
   </NotificationContainer>
 )
