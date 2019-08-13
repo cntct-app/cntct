@@ -1,10 +1,11 @@
 const { Router } = require('express')
+const createVCard = require('create-vcard').default
 
 const Party = require('./models/Party')
 const Member = require('./models/Member')
 
 const { asyncHandler, generatePartyCode, validationErrorHandler } = require('./util')
-const { partyNameValidation, partyCodeValidation, memberValidation } = require('./validations')
+const { partyNameValidation, partyCodeValidation, memberValidation, memberIdValidation } = require('./validations')
 
 const router = Router()
 
@@ -68,8 +69,27 @@ router.post('/party/:code/join', memberValidation, validationErrorHandler, async
     partyCode: code
   })
 
-  // 204 status means successful request but no content returned
+  // 204 status means successful request but no content will be returned
   res.status(204).end()
+}))
+
+// Generate vCards for members
+router.get('/generate_vcard/:memberId', memberIdValidation, validationErrorHandler, asyncHandler(async (req, res) => {
+  const member = await Member.findById(req.params.memberId)
+  const { firstName, lastName, phone, email } = member
+
+  const card = createVCard({
+    firstName,
+    lastName,
+    cellPhone: phone,
+    email
+  })
+
+  // Tell the browser what type of file the vCard is
+  res.set('Content-Type', `text/vcard; name="${firstName}.vcf"`)
+  res.set('Content-Disposition', `inline; filename="${firstName}.vcf"`)
+
+  res.send(card.getFormattedString())
 }))
 
 module.exports = router

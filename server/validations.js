@@ -42,7 +42,7 @@ const memberValidation = oneOf([
 ])
 
 const memberIdValidation = [
-  body('id')
+  param('memberId')
     .isMongoId()
 ]
 
