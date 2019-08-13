@@ -19,7 +19,7 @@ const memberNameValidation = [
     .isLength({ min: 1, max: 35 })
     .trim().escape(),
   body('lastName')
-    .isLength({ min: 1, max: 35 })
+    .isLength({ max: 35 })
     .trim().escape()
 ]
 
@@ -41,8 +41,14 @@ const memberValidation = oneOf([
   ]
 ])
 
+const memberIdValidation = [
+  body('id')
+    .isMongoId()
+]
+
 module.exports = {
   partyNameValidation,
   partyCodeValidation,
-  memberValidation
+  memberValidation,
+  memberIdValidation
 }
