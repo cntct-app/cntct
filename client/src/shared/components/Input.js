@@ -10,6 +10,9 @@ const Input = styled.input.attrs(({ placeholder }) => ({
   color: ${color.content.primary};
   outline: none;
 
+  /* Fix placeholder alignment in iOS Safari */
+  line-height: normal;
+
   /* Fix the input width on Safari due to a layout bug */
   overflow: hidden; 
 
