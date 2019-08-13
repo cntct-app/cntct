@@ -60,7 +60,8 @@ const PartyCodeField = styled(Field)`
 `
 
 const Footer = styled(Container).attrs(() => ({
-  as: 'footer'
+  as: 'footer',
+  spacing: dimension.spacing.separate
 }))`
   margin-top: auto;
 
