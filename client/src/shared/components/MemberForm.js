@@ -56,7 +56,7 @@ class MemberForm extends Component {
   validate = () => {
     const { firstName, lastName, phone, email } = this.state
     const isFirstNameValid = firstName.length && firstName.length <= 35
-    const isLastNameValid = lastName.length && firstName.length <= 35
+    const isLastNameValid = firstName.length <= 35 // lastName is not required
     const isPhoneBlank = phone.length === 0
     const isPhoneValid = validatePhoneNumber(phone)
     const isEmailBlank = email.length === 0
