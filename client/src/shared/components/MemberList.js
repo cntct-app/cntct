@@ -5,15 +5,11 @@ import { withRouter } from 'react-router-dom'
 
 import Error from '../../pages/Error'
 
-import Label, { Title } from './Label'
-import Button from './Button'
 import Container from './Container'
-import MemberAvatar from './MemberAvatar'
 import PartyHeader from './PartyHeader'
 import Loading from './Loading'
 
-import { formatPhoneNumber } from '../util'
-import { dimension } from '../theme'
+import MemberButton from './MemberButton'
 
 const MemberListContainer = styled(Container).attrs(() => ({
   as: 'ul'
@@ -22,20 +18,6 @@ const MemberListContainer = styled(Container).attrs(() => ({
   padding: 0;
   list-style: none;
 `
-
-const MemberDetails = ({ firstName, lastName, phone, email }) => (
-  <Container spacing={ dimension.spacing.connected }>
-    <Title secondary>{firstName} {lastName}</Title>
-    <Label secondary secondaryColor>{phone ? formatPhoneNumber(phone) : email}</Label>
-  </Container>
-)
-
-MemberDetails.propTypes = {
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string,
-  phone: PropTypes.string,
-  email: PropTypes.string
-}
 
 class MemberList extends Component {
   state = {
@@ -54,6 +36,9 @@ class MemberList extends Component {
       console.error(err)
     }
   }
+  downloadVCard = id => {
+    window.location.href = `/api/generate_vcard/${id}`
+  }
   render = () => {
     if (this.state.loading) {
       return <Loading message='Loading party members...' />
@@ -69,12 +54,9 @@ class MemberList extends Component {
 
         <Container as='main'>
           <MemberListContainer>
-            { this.state.members.map(({ _id, firstName, lastName, phone, email }) => (
-              <li key={_id} css={`width: 100%;`}>
-                <Button actionGlyph='add' stretch noLabel>
-                  <MemberAvatar firstName={firstName} lastName={lastName} />
-                  <MemberDetails firstName={firstName} lastName={lastName} phone={phone} email={email} />
-                </Button>
+            { this.state.members.map(member => (
+              <li key={member._id} css={`width: 100%;`}>
+                <MemberButton member={member} onClick={() => this.downloadVCard(member._id)} />
               </li>
             )) }
           </MemberListContainer>
