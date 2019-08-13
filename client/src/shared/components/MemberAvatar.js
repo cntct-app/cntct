@@ -19,16 +19,14 @@ const MemberAvatarContainer = styled.div`
   height: ${dimension.thumbnail.size};
 `
 
-const MemberAvatar = ({ image, firstName, lastName }) => (
+const MemberAvatar = ({ firstName, lastName }) => (
   <MemberAvatarContainer>
-    { image && !firstName && !lastName && <img src={image} /> }
     <Title secondary>{ firstName.slice(0, 1).toUpperCase() }{ lastName ? lastName.slice(0, 1).toUpperCase() : '' }</Title>
   </MemberAvatarContainer>
 )
 
 MemberAvatar.propTypes = {
-  image: PropTypes.string,
-  firstName: PropTypes.string,
+  firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string
 }
 
