@@ -14,9 +14,10 @@ import MemberButton from './MemberButton'
 const MemberListContainer = styled(Container).attrs(() => ({
   as: 'ul'
 }))`
+  list-style: none;
+  
   margin: 0;
   padding: 0;
-  list-style: none;
 `
 
 class MemberList extends Component {
@@ -28,6 +29,7 @@ class MemberList extends Component {
     try {
       const resp = await fetch(`/api/party/${this.props.party.code}/members`)
       const { members } = await resp.json()
+
       this.setState({
         members,
         loading: false
@@ -68,8 +70,8 @@ class MemberList extends Component {
 
 MemberList.propTypes = {
   party: PropTypes.shape({
-    code: PropTypes.string,
-    name: PropTypes.string
+    code: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
   }).isRequired
 }
 

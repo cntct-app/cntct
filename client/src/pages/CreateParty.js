@@ -58,8 +58,8 @@ class CreateParty extends Component {
         },
         body: JSON.stringify({ name })
       })
-      const { code } = await resp.json()
 
+      const { code } = await resp.json()
       this.props.history.push(`/party/${code}`)
     } catch (err) {
       console.error(`Error creating party: ${err}`)
@@ -89,7 +89,7 @@ class CreateParty extends Component {
 
 CreateParty.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func
+    push: PropTypes.func.isRequired
   }).isRequired
 }
 

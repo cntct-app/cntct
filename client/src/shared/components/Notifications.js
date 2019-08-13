@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
-import { dimension, color, effect, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
-import notificationHelper from '../notificationHelper'
 
 import Container from './Container'
 import Glyph from './Glyph'
 import Label from './Label'
+
+import { color, dimension, effect, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
+import notificationHelper from '../notificationHelper'
 
 const NotificationContainer = styled(Container).attrs(() => ({
   row: true,
@@ -63,25 +64,18 @@ const Notification = ({ content, isVisible, type }) => (
 )
 
 Notification.propTypes = {
-  content: PropTypes.string,
+  content: PropTypes.string, // Content is blank when notification is off screen
   isVisible: PropTypes.bool.isRequired,
   type: PropTypes.string
 }
 
 class Notifications extends Component {
-  constructor (props) {
-    super(props)
-
-    this.tick = this.tick.bind(this)
-    this.handleNewNotification = this.handleNewNotification.bind(this)
-
-    this.state = {
-      isNotificationVisible: false,
-      currentNotification: {},
-      notifications: []
-    }
+  state = {
+    currentNotification: {},
+    isNotificationVisible: false,
+    notifications: []
   }
-  tick () {
+  tick = () => {
     if (this.state.notifications.length === 0) {
       return
     }
@@ -104,10 +98,10 @@ class Notifications extends Component {
       this.tick()
     }, 2000)
   }
-  componentDidMount () {
+  componentDidMount = () => {
     notificationHelper.subscribe(this.handleNewNotification)
   }
-  handleNewNotification (notification) {
+  handleNewNotification = notification => {
     if (this.state.notifications.length === 0 || notification.content !== this.state.currentNotification.content) {
       this.setState(previousState => ({
         currentNotification: notification,
@@ -115,16 +109,16 @@ class Notifications extends Component {
           ...previousState.notifications,
           notification
         ]
-      }), newState => {
+      }), () => {
         if (this.state.notifications.length === 1) {
           this.tick()
         }
       })
     }
   }
-  render () {
-    return <Notification isVisible={this.state.isNotificationVisible} type={this.state.currentNotification.type} content={this.state.currentNotification.content} />
-  }
+  render = () => (
+    <Notification isVisible={this.state.isNotificationVisible} type={this.state.currentNotification.type} content={this.state.currentNotification.content} />
+  )
 }
 
 export default Notifications

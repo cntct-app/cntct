@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
+import styled from 'styled-components'
 
 import Label from './Label'
 
-import { text } from '../theme'
-
 import { childrenType } from '../types'
+import { text } from '../theme'
 
 const StyledLink = styled(Label).attrs(() => ({
   as: 'a'
@@ -29,7 +28,7 @@ Link.propTypes = {
   to: PropTypes.string.isRequired,
   children: childrenType,
   history: PropTypes.shape({
-    push: PropTypes.func
+    push: PropTypes.func.isRequired
   }).isRequired
 }
 

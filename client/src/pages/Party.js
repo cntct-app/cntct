@@ -14,7 +14,6 @@ class Party extends Component {
   }
   componentDidMount = async () => {
     const partyCode = this.props.match.params.partyCode
-
     const isPartyCodeValid = partyCode.length === 5 && isInt(partyCode)
 
     if (!isPartyCodeValid) {
@@ -63,8 +62,8 @@ class Party extends Component {
 
 Party.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.object
-  }),
+    params: PropTypes.object.isRequired
+  }).isRequired,
   render: PropTypes.func.isRequired
 }
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { color, text, dimension } from '../theme'
+import { color, dimension, text } from '../theme'
 
 const Input = styled.input.attrs(({ placeholder }) => ({
   placeholder

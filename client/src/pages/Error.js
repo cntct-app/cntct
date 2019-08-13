@@ -2,23 +2,25 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import Label from '../shared/components/Label'
 import { ButtonContainer, LinkButton } from '../shared/components/Button'
+import Container from '../shared/components/Container'
 import Header from '../shared/components/Header'
+import Label from '../shared/components/Label'
 import Logo from '../shared/components/Logo'
 
-import thonkImage from '../shared/resources/thonk.svg'
-
-import Container from '../shared/components/Container'
 import { dimension } from '../shared/theme'
+
+import thonkImage from '../shared/resources/thonk.svg'
 
 const ErrorContainer = styled(Container)`
   > img {
     width: 100px;
   }
+
   && > p {
     margin-bottom: ${dimension.spacing.separate};
   }
+
   ${ButtonContainer} {
     margin-right: auto;
   }

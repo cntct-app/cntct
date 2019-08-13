@@ -2,10 +2,12 @@ import styled from 'styled-components'
 import { lighten } from 'polished'
 
 import Glyph from './Glyph'
-import { dimension, color, generateHighlightBoxShadow, highlight } from '../theme'
+
+import { color, dimension, generateHighlightBoxShadow, highlight } from '../theme'
 import { controlTransitions } from '../mixins'
 
 const Field = styled.div`
+  /* Include transitions for control focus states */
   ${controlTransitions}
 
   background-image: linear-gradient(${color.field.background}, ${lighten(0.03, color.field.background)});

@@ -1,16 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 import { withRouter } from 'react-router-dom'
+import styled, { css } from 'styled-components'
 
 import Glyph from './Glyph'
 import { Title } from './Label'
 
-import { childrenType } from '../types'
 import { ButtonState } from '../enums'
-import { controlTransitions } from '../mixins'
-
+import { childrenType } from '../types'
 import { color, dimension, generateColorVariant, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
+import { controlTransitions } from '../mixins'
 
 export const ButtonContainer = styled.button.attrs(() => ({
   onTouchStart: e => e.preventDefault()
@@ -135,7 +134,7 @@ const _LinkButton = ({ to, history, children, ...rest }) => (
 _LinkButton.propTypes = {
   to: PropTypes.string.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func
+    push: PropTypes.func.isRequired
   }).isRequired,
   children: childrenType
 }

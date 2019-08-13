@@ -6,9 +6,8 @@ import Glyph from './Glyph'
 import Header from './Header'
 import Label, { Title } from './Label'
 
-import { partyCodeStyle } from '../mixins'
-
 import { dimension } from '../theme'
+import { partyCodeStyle } from '../mixins'
 
 const PartyHeader = ({ code, name }) => (
   <Header spacing={dimension.spacing.connected}>

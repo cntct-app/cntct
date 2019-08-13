@@ -1,11 +1,9 @@
 class NotificationHelper {
-  constructor () {
-    this.subscribers = []
-  }
-  subscribe (cb) {
+  subscribers = []
+  subscribe = cb => {
     this.subscribers.push(cb)
   }
-  add ({ content, type = 'notification' }) {
+  add = ({ content, type = 'notification' }) => {
     this.subscribers.forEach(cb => cb({
       content,
       type

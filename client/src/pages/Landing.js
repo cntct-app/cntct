@@ -1,23 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
 import { withRouter } from 'react-router-dom'
+import styled, { css } from 'styled-components'
 import { opacify } from 'polished'
 import isInt from 'validator/lib/isInt'
 
-import Label from '../shared/components/Label'
 import Container from '../shared/components/Container'
-import Header from '../shared/components/Header'
 import Field from '../shared/components/Field'
 import Glyph from '../shared/components/Glyph'
+import Header from '../shared/components/Header'
 import Input from '../shared/components/Input'
-import { LinkButton } from '../shared/components/Button'
+import Label from '../shared/components/Label'
 import Link from '../shared/components/Link'
+import { LinkButton } from '../shared/components/Button'
 import Logo from '../shared/components/Logo'
 
+import { dimension, color } from '../shared/theme'
 import notificationHelper from '../shared/notificationHelper'
 import { partyCodeStyle } from '../shared/mixins'
-import { dimension, color } from '../shared/theme'
 
 import crunchLogo from '../shared/resources/crunch.svg'
 
@@ -145,7 +145,7 @@ class Landing extends Component {
 
 Landing.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func
+    push: PropTypes.func.isRequired
   }).isRequired
 }
 

@@ -14,9 +14,8 @@ import Input from './Input'
 import Link from './Link'
 import PartyHeader from './PartyHeader'
 
-import { validatePhoneNumber } from '../util'
-
 import { dimension } from '../theme'
+import { validatePhoneNumber } from '../util'
 
 const NameContainer = styled(Container).attrs({
   row: true
@@ -135,10 +134,10 @@ MemberForm.propTypes = {
     name: PropTypes.string.isRequired
   }).isRequired,
   location: PropTypes.shape({
-    pathname: PropTypes.string
+    pathname: PropTypes.string.isRequired
   }).isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func
+    push: PropTypes.func.isRequired
   }).isRequired
 }
 
