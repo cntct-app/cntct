@@ -16,7 +16,7 @@ import { LinkButton } from '../shared/components/Button'
 import Logo from '../shared/components/Logo'
 
 import { dimension, color } from '../shared/theme'
-import notificationHelper from '../shared/notificationHelper'
+import { notificationHelper } from '../shared/helpers'
 import { partyCodeStyle } from '../shared/mixins'
 
 import crunchLogo from '../shared/resources/crunch.svg'

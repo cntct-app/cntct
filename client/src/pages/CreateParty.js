@@ -9,7 +9,7 @@ import Header from '../shared/components/Header'
 import Input from '../shared/components/Input'
 import { Title } from '../shared/components/Label'
 
-import notificationHelper from '../shared/notificationHelper'
+import { notificationHelper } from '../shared/helpers'
 
 class CreateParty extends Component {
   state = {

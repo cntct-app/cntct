@@ -7,7 +7,7 @@ import Glyph from './Glyph'
 import Label from './Label'
 
 import { color, dimension, effect, generateGradient, generateHighlightBoxShadow, highlight, text } from '../theme'
-import notificationHelper from '../notificationHelper'
+import { notificationHelper } from '../helpers'
 
 const NotificationContainer = styled(Container).attrs(() => ({
   row: true,

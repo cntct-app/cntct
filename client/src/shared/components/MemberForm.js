@@ -15,7 +15,7 @@ import Link from './Link'
 import PartyHeader from './PartyHeader'
 
 import { dimension } from '../theme'
-import notificationHelper from '../notificationHelper'
+import { notificationHelper } from '../helpers'
 import { validatePhoneNumber } from '../util'
 
 const NameContainer = styled(Container).attrs({

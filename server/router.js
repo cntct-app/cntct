@@ -69,6 +69,10 @@ router.post('/party/:code/join', memberValidation, validationErrorHandler, async
     partyCode: code
   })
 
+  // Send members array to client
+  const members = await Member.find({ partyCode: code })
+  req.io.to(code).emit('update_members', members)
+
   // 204 status means successful request but no content will be returned
   res.status(204).end()
 }))

@@ -8,8 +8,9 @@ import Error from '../../pages/Error'
 import Container from './Container'
 import PartyHeader from './PartyHeader'
 import Loading from './Loading'
-
 import MemberButton from './MemberButton'
+
+import { subscribeToMembers } from '../helpers'
 
 const MemberListContainer = styled(Container).attrs(() => ({
   as: 'ul'
@@ -37,6 +38,10 @@ class MemberList extends Component {
     } catch (err) {
       console.error(err)
     }
+
+    subscribeToMembers(this.props.party.code, members => {
+      this.setState({ members })
+    })
   }
   downloadVCard = id => {
     window.location.href = `/api/generate_vcard/${id}`
