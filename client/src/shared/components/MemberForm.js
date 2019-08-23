@@ -105,7 +105,7 @@ class MemberForm extends Component {
       return
     }
 
-    this.props.history.push(`${this.props.location.pathname}/members`)
+    this.props.history.push(`/party/${this.props.party.code}/members`)
   }
   render = () => (
     <>
