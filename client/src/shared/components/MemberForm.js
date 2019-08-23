@@ -15,6 +15,7 @@ import Link from './Link'
 import PartyHeader from './PartyHeader'
 
 import { dimension } from '../theme'
+import notificationHelper from '../notificationHelper'
 import { validatePhoneNumber } from '../util'
 
 const NameContainer = styled(Container).attrs({
@@ -38,6 +39,20 @@ class MemberForm extends Component {
     const key = e.target.name
     let value = e.target.value
 
+    if (key === 'firstName' && value.length > 35) {
+      notificationHelper.add({
+        type: 'error',
+        content: 'First name cannot be more than 35 characters'
+      })
+    }
+
+    if (key === 'lastName' && value.length > 35) {
+      notificationHelper.add({
+        type: 'error',
+        content: 'Last name cannot be more than 35 characters'
+      })
+    }
+
     if (key === 'phone') {
       let newValue = parseIncompletePhoneNumber(value)
 
@@ -55,7 +70,7 @@ class MemberForm extends Component {
   validate = () => {
     const { firstName, lastName, phone, email } = this.state
     const isFirstNameValid = firstName.length && firstName.length <= 35
-    const isLastNameValid = lastName.length <= 35 // lastName is not required
+    const isLastNameValid = lastName.length <= 35 // Last name is not required
     const isPhoneBlank = phone.length === 0
     const isPhoneValid = validatePhoneNumber(phone)
     const isEmailBlank = email.length === 0
