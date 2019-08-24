@@ -121,7 +121,7 @@ export const text = {
     }
   },
   partyCode: {
-    font: '\'ZCOOL QingKe HuangYou\', monospace',
+    font: '"ZCOOL QingKe HuangYou", monospace',
     letterSpacing: '0.37em',
     size: '36px'
   },
