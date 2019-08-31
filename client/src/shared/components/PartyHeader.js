@@ -10,7 +10,7 @@ import { dimension } from '../theme'
 import { partyCodeStyle } from '../mixins'
 
 const PartyHeader = ({ code, name }) => (
-  <Header spacing={dimension.spacing.connected}>
+  <Header margin={dimension.spacing.connected}>
     <Container center row>
       <Glyph glyph='code' large />
       <Label css={`${partyCodeStyle}`}>{ code }</Label>

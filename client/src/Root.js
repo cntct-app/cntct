@@ -52,7 +52,7 @@ const Root = () => (
     <Notifications />
 
     <Router>
-      <AppContainer spacing={dimension.spacing.separate}>
+      <AppContainer margin={dimension.spacing.separate}>
         <Normalize />
         <GlobalStyle />
 

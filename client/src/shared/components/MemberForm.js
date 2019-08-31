@@ -12,11 +12,11 @@ import Form from './Form'
 import Glyph from './Glyph'
 import Input from './Input'
 import Link from './Link'
-import PartyHeader from './PartyHeader'
 
-import { dimension } from '../theme'
 import { notificationHelper } from '../helpers'
 import { validatePhoneNumber } from '../util'
+
+import { dimension } from '../theme'
 
 const NameContainer = styled(Container).attrs({
   row: true
@@ -34,6 +34,12 @@ class MemberForm extends Component {
     phone: '',
     email: '',
     isValid: false
+  }
+  componentDidMount = () => {
+    this.props.memberFormDidMount()
+  }
+  componentWillUnmount = () => {
+    this.props.memberFormWillUnmount()
   }
   onInputChange = e => {
     const key = e.target.name
@@ -108,52 +114,42 @@ class MemberForm extends Component {
     this.props.history.push(`/party/${this.props.party.code}/members`)
   }
   render = () => (
-    <>
-      <PartyHeader code={this.props.party.code} name={this.props.party.name} />
-
-      <Container spacing={dimension.spacing.separate}>
-        <Container row spacing={dimension.spacing.connected}>
-          <Glyph glyph='important' />
-          <Link to='/privacy' secondary>We only store your data temporarily</Link>
-        </Container>
-
-        <Form onSubmit={this.onSubmit}>
-          <NameContainer>
-            <Field>
-              <Input placeholder='First Name' name='firstName' onChange={this.onInputChange} value={this.state.firstName} />
-            </Field>
-
-            <Field>
-              <Input placeholder='Last Name' name='lastName' onChange={this.onInputChange} value={this.state.lastName} />
-            </Field>
-          </NameContainer>
-
-          <Field>
-            <Input placeholder='Phone Number' type='tel' name='phone' autocomplete='tel' onChange={this.onInputChange} value={formatIncompletePhoneNumber(this.state.phone, 'US')} />
-          </Field>
-
-          <Field>
-            <Input placeholder='Email Address' type='email' name='email' onChange={this.onInputChange} value={this.state.email} />
-          </Field>
-
-          <Button primary disabled={!this.state.isValid}>Continue</Button>
-        </Form>
+    <Container margin={dimension.spacing.separate}>
+      <Container row margin={dimension.spacing.connected}>
+        <Glyph glyph='important' />
+        <Link to='/privacy' secondary>We only store your data temporarily</Link>
       </Container>
-    </>
+
+      <Form onSubmit={this.onSubmit}>
+        <NameContainer>
+          <Field>
+            <Input placeholder='First Name' name='firstName' onChange={this.onInputChange} value={this.state.firstName} />
+          </Field>
+
+          <Field>
+            <Input placeholder='Last Name' name='lastName' onChange={this.onInputChange} value={this.state.lastName} />
+          </Field>
+        </NameContainer>
+
+        <Field>
+          <Input placeholder='Phone Number' type='tel' name='phone' autocomplete='tel' onChange={this.onInputChange} value={formatIncompletePhoneNumber(this.state.phone, 'US')} />
+        </Field>
+
+        <Field>
+          <Input placeholder='Email Address' type='email' name='email' onChange={this.onInputChange} value={this.state.email} />
+        </Field>
+
+        <Button primary disabled={!this.state.isValid}>Continue</Button>
+      </Form>
+    </Container>
   )
 }
 
 MemberForm.propTypes = {
-  party: PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  }).isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired
+  party: PropTypes.shape({ code: PropTypes.string.isRequired }).isRequired,
+  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+  memberFormWillUnmount: PropTypes.func.isRequired,
+  memberFormDidMount: PropTypes.func.isRequired
 }
 
 export default withRouter(MemberForm)

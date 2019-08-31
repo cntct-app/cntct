@@ -17,10 +17,10 @@ const Container = styled.div`
   }
 
   > *:not(:last-child) {
-    ${({ row, spacing = dimension.spacing.related }) => row ? css`
-      margin-right: ${spacing};
+    ${({ row, margin = dimension.spacing.related }) => row ? css`
+      margin-right: ${margin};
     ` : css`
-      margin-bottom: ${spacing};
+      margin-bottom: ${margin};
     `}
   }
 `
@@ -28,7 +28,7 @@ const Container = styled.div`
 Container.propTypes = {
   center: PropTypes.bool,
   row: PropTypes.bool,
-  spacing: PropTypes.string
+  margin: PropTypes.string
 }
 
 export default Container

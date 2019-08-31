@@ -10,7 +10,7 @@ import { formatPhoneNumber } from '../util'
 import { dimension } from '../theme'
 
 const MemberDetails = ({ firstName, lastName, phone, email }) => (
-  <Container spacing={dimension.spacing.connected}>
+  <Container margin={dimension.spacing.connected}>
     <Title secondary>{firstName} {lastName || ''}</Title>
     <Label secondary secondaryColor>{phone ? formatPhoneNumber(phone) : email}</Label>
   </Container>

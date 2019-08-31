@@ -11,7 +11,7 @@ import { notificationHelper } from '../helpers'
 
 const NotificationContainer = styled(Container).attrs(() => ({
   row: true,
-  spacing: dimension.spacing.connected
+  margin: dimension.spacing.connected
 }))`
   ${({ type }) => type === 'error' ? css`
     background-color: ${color.error};

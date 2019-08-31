@@ -59,9 +59,9 @@ const PartyCodeField = styled(Field)`
   }
 `
 
-const Footer = styled(Container).attrs(() => ({
+const LandingFooter = styled(Container).attrs(() => ({
   as: 'footer',
-  spacing: dimension.spacing.separate
+  margin: dimension.spacing.separate
 }))`
   margin-top: auto;
 
@@ -130,7 +130,7 @@ class Landing extends Component {
         </Container>
       </Container>
 
-      <Footer>
+      <LandingFooter>
         <Label secondaryColor>If you’re trying to join others, ask for a party code.</Label>
 
         <Container row center>
@@ -138,7 +138,7 @@ class Landing extends Component {
           <Link to='/terms'>Terms</Link>
           <Link to='/privacy'>Privacy</Link>
         </Container>
-      </Footer>
+      </LandingFooter>
     </>
   )
 }

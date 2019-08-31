@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const PartySchema = mongoose.Schema({
   code: String,
-  name: String
+  name: String,
+  incomingSocketIDs: [String]
 }, {
   timestamps: true
 })

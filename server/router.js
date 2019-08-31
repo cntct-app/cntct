@@ -23,19 +23,8 @@ router.post('/create_party', partyNameValidation, validationErrorHandler, asyncH
   res.json({ code })
 }))
 
-// Get a party
-router.get('/party/:code/', partyCodeValidation, validationErrorHandler, asyncHandler(async (req, res) => {
-  const party = await Party.findOne({ code: req.params.code })
-
-  if (!party) {
-    return res.status(404).json({ error: 'Party does not exist' })
-  }
-
-  res.json({ party })
-}))
-
-// Get members in party
-router.get('/party/:code/members', partyCodeValidation, validationErrorHandler, asyncHandler(async (req, res) => {
+// Get information about a party and the members it contains
+router.get('/party/:code', partyCodeValidation, validationErrorHandler, asyncHandler(async (req, res) => {
   const { code } = req.params
   const party = await Party.findOne({ code })
 
@@ -47,13 +36,22 @@ router.get('/party/:code/members', partyCodeValidation, validationErrorHandler, 
     partyCode: code
   })
 
-  res.json({ members })
+  const { incomingSocketIDs, name } = party
+
+  res.json({
+    party: {
+      code,
+      name,
+      members,
+      incomingMemberCount: incomingSocketIDs.length
+    }
+  })
 }))
 
 // Join a party
 router.post('/party/:code/join', memberValidation, validationErrorHandler, asyncHandler(async (req, res) => {
-  const { firstName, lastName, phone, email } = req.body
   const { code } = req.params
+  const { firstName, lastName, phone, email } = req.body
 
   const party = await Party.findOne({ code })
 
@@ -61,7 +59,7 @@ router.post('/party/:code/join', memberValidation, validationErrorHandler, async
     return res.status(404).json({ error: 'Party does not exist' })
   }
 
-  await Member.create({
+  const member = await Member.create({
     firstName,
     lastName,
     phone,
@@ -69,9 +67,8 @@ router.post('/party/:code/join', memberValidation, validationErrorHandler, async
     partyCode: code
   })
 
-  // Send members array to client
-  const members = await Member.find({ partyCode: code })
-  req.io.to(code).emit('update_members', members)
+  // Send new member to client
+  req.io.to(code).emit('new_member', member)
 
   // 204 status means successful request but no content will be returned
   res.status(204).end()

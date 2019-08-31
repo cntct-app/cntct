@@ -6,8 +6,8 @@ import Party from '../../pages/Party'
 
 const PartyExistsRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={() => (
-    <Party render={party =>
-      <Component party={party} />
+    <Party render={(party, memberFormDidMount, memberFormWillUnmount) =>
+      <Component party={party} memberFormDidMount={memberFormDidMount} memberFormWillUnmount={memberFormWillUnmount} />
     }/>
   )} />
 )
