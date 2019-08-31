@@ -42,7 +42,7 @@ const MemberList = ({ party: { code: partyCode, members } }) => {
 MemberList.propTypes = {
   party: PropTypes.shape({
     members: PropTypes.arrayOf(memberType).isRequired,
-    code: PropTypes.number.isRequired
+    code: PropTypes.string.isRequired
   }).isRequired
 }
 
