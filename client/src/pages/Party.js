@@ -14,6 +14,8 @@ import Label, { Title } from '../shared/components/Label'
 
 import { dimension } from '../shared/theme'
 
+import { notificationHelper } from '../shared/helpers'
+
 const StyledPartyFooter = styled(Container).attrs(() => ({
   as: 'footer',
   margin: dimension.spacing.connected
@@ -77,6 +79,10 @@ class Party extends Component {
             ]
           }
         })
+      })
+      
+      notificationHelper.add({
+        content: `${member.firstName} joined`
       })
     })
 
