@@ -34,7 +34,9 @@ PartyFooter.propTypes = {
 }
 
 class Party extends Component {
-  socket = io('http://localhost:5001')
+  socket = io('/', {
+    'path': '/api/socket.io'
+  })
   state = {
     party: null,
     loading: true,

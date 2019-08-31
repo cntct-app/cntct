@@ -78,7 +78,7 @@ class CreateParty extends Component {
 
       <Form onSubmit={this.onSubmit}>
         <Field>
-          <Input placeholder='Party Name' name='name' onChange={this.onInputChange} value={this.state.name} />
+          <Input placeholder='Party Name' name='partyName' onChange={this.onInputChange} value={this.state.name} />
         </Field>
 
         <Button primary disabled={!this.state.isValid}>Continue</Button>
