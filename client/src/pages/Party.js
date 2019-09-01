@@ -111,6 +111,9 @@ class Party extends Component {
       console.error(`Error fetching party name: ${err}`)
     }
   }
+  componentWillUnmount = () => {
+    this.socket.close()
+  }
   memberFormDidMount = async () => {
     this.asyncEmit('new_incoming_member', this.state.party.code)
     this.setState({ isEnteringInformation: true })
