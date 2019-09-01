@@ -26,7 +26,7 @@ const StyledPartyFooter = styled(Container).attrs(() => ({
 const PartyFooter = ({ memberCount, incomingCount }) => (
   <StyledPartyFooter>
     <Title secondary>{memberCount} Member{memberCount === 1 ? '' : 's'}</Title>
-    { incomingCount && <Label secondary secondaryColor>{incomingCount} other{incomingCount === 1 ? '' : 's'} entering information</Label>}
+    { incomingCount > 0 && <Label secondary secondaryColor>{incomingCount} other{incomingCount === 1 ? '' : 's'} entering information</Label>}
   </StyledPartyFooter>
 )
 
@@ -36,9 +36,7 @@ PartyFooter.propTypes = {
 }
 
 class Party extends Component {
-  socket = io('/', {
-    'path': '/api/socket.io'
-  })
+  socket = io('/', { path: '/api/socket.io' })
   state = {
     party: null,
     loading: true,
@@ -80,7 +78,7 @@ class Party extends Component {
           }
         })
       })
-      
+
       notificationHelper.add({
         content: `${member.firstName} joined`
       })
